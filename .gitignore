@@ -1,6 +1,7 @@
 # Hugo
 .hugo_build.lock
 resources/
+_site/
 
 # macOS
 .DS_Store
