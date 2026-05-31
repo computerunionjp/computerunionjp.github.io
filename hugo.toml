@@ -1,0 +1,5 @@
+baseURL = "https://computer-union.jp/"
+locale = "ja"
+title = "computer-union.jp"
+contentDir = "src"
+publishDir = "docs"
