@@ -19,3 +19,5 @@ GitHub Actions の設定は `.github/workflows/on-push.yaml`
 - migration/
 - test/
 - tools/
+
+[移行ツールの使い方](tools/import_wordpress.md)

@@ -3,6 +3,11 @@
 resources/
 _site/
 
+# Python
+venv/
+__pycache__/
+*.pyc
+
 # macOS
 .DS_Store
 .AppleDouble
