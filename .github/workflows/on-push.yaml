@@ -5,8 +5,9 @@ on:
     paths-ignore:
       - ".vscode/**/*"
       - "docs/**/*"
-      - "tools/**/*"
+      - "migration/**/*"
       - "test/**/*"
+      - "tools/**/*"
       - "README.md"
 jobs:
   build:

@@ -16,5 +16,6 @@ GitHub Actions の設定は `.github/workflows/on-push.yaml`
 下記のディレクトリは GitHub Actions で無視する設定にしています。作業のマニュアルやコンテンツ作成のための補助的なツール等を置いてください。
 
 - docs/
-- tools/
+- migration/
 - test/
+- tools/
