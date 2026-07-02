@@ -1,11 +1,93 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="{{ .Site.Language.Locale }}">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }} | {{ .Site.Title }}{{ end }}</title>
-</head>
-<body>
-  {{ block "main" . }}{{ end }}
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      {{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }} | {{ .Site.Title
+      }}{{ end }}
+    </title>
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: sans-serif;
+        margin: 0;
+        color: #222;
+      }
+      a {
+        color: #00838f;
+      }
+      .visually-hidden {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+      }
+      .material-icons {
+        vertical-align: text-bottom;
+        font-size: 1.1em;
+      }
+      .site-header,
+      .site-footer {
+        padding: 1rem;
+      }
+      .site-header {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 1rem;
+      }
+      .site-title {
+        margin: 0;
+        font-size: 1.25rem;
+      }
+      .site-title a {
+        text-decoration: none;
+      }
+      .site-nav ul {
+        list-style: none;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+        margin: 0;
+        padding: 0;
+      }
+      .site-footer {
+        font-size: 0.9rem;
+      }
+      .content-wrap {
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+      main {
+        padding: 1rem;
+      }
+      img {
+        max-width: 100%;
+      }
+      @media (min-width: 640px) {
+        .content-wrap {
+          display: flex;
+          align-items: flex-start;
+        }
+        main {
+          flex: 2;
+        }
+        .site-footer {
+          flex: 1;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    {{ partial "header.html" . }}
+    <div class="content-wrap">
+      {{ block "main" . }}{{ end }} {{ partial "footer.html" . }}
+    </div>
+  </body>
 </html>

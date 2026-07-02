@@ -1,8 +1,11 @@
 {{ define "main" }}
 <main>
-  <h1>{{ .Title }}</h1>
+  <h1>
+    {{ if eq .Section "blog" }}ブログ{{ else if eq .Section "job" }}しごと情報{{
+    else }}{{ .Title }}{{ end }}
+  </h1>
   <ul>
-    {{ range .Pages }}
+    {{ range .Pages.ByDate.Reverse }}
     <li><a href="{{ .Permalink }}">{{ .Title }}</a></li>
     {{ end }}
   </ul>

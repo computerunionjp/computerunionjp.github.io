@@ -30,14 +30,18 @@ KIND_DIR = {
 }
 
 
-def classify_item(item: WPItem) -> str | None:
-    """WPItem を分類する。移行対象外の場合は None を返す。"""
+def classify_item(item: WPItem, min_post_id: int = MIN_POST_ID) -> str | None:
+    """WPItem を分類する。移行対象外の場合は None を返す。
+
+    min_post_id より小さい ID の記事・固定ページは移行対象外とする
+    (既定値は MIN_POST_ID。CLI の --start で変更できる)。
+    """
     if item.post_type not in ("post", "page"):
         # post / page 以外 (attachment, nav_menu_item, wp_template, ...) は移行対象外
         return None
 
-    if item.post_id < MIN_POST_ID:
-        # 古い投稿・固定ページ (ID が MIN_POST_ID 未満) は移行対象外とする
+    if item.post_id < min_post_id:
+        # 古い投稿・固定ページ (ID が min_post_id 未満) は移行対象外とする
         return None
 
     if item.post_type == "post":

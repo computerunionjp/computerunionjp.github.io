@@ -5,6 +5,8 @@
 ローカルでプレビューするには `hugo` が必要です。
 
 ```bash
+git clone https://github.com/computerunionjp/computerunionjp.git
+cd computerunionjp
 hugo server
 ```
 
