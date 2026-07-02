@@ -28,3 +28,64 @@ WordPress の投稿 ID が 3500 より古い記事は移行対象外とします
 
 「しごと情報」の記事で 2列のテーブルがあり、そのテーブルの見出しが空の場合
 `|  |  |` は `| 項目 | 内容 |` とします。
+
+### 3.3 追加の仕様(3)
+
+`tools/import_wordpress.md` に引数 `--test` を追加してください。
+`--test` が指定された場合は「その他のページ」から「お問い合わせ」へのリンクは
+`/contact/` ではなく `https://computer-union.jp/?page_id=4650` とします。
+`--test` が指定された場合は `--base-url` に `https://computerunionjp.github.io/`
+が指定されているとみなします。
+
+`--dry-run` または `--limit` が指定された場合は `--test` も指定されているとみなします。
+
+### 3.4. 追加の仕様(4)
+
+リンクの open_in_new は次のようにしてください。
+`/images/external_link.png` は移行元からダウンロードします。
+
+```html
+<a href="https://example.com" target="_blank" rel="noopener noreferrer">
+  リンクテキスト<img src="/images/external_link.png " alt="external_link" />
+</a>
+```
+
+例えば
+
+```md
+[MIC：マスコミ文化情報労組会議open\_in\_new](http://www.union-net.or.jp/mic/)
+```
+
+は
+
+```html
+<a href="https://example.com" target="_blank" rel="noopener noreferrer">
+  リンクテキスト<img src="/images/external_link.png " alt="Open in new" />
+</a>
+```
+
+とします。
+
+リンクの folder は次のようにしてください。
+`/images/outline_folder_black_24dp.png` は移行元からダウンロードします。
+
+```md
+[![Folder](/images/outline_folder_black_24dp.png) リンクテキスト](/path/to/folder/)
+```
+
+例えば
+
+```md
+### [folderしごと情報](/job/)
+```
+
+は
+
+```html
+### [![Folder](/images/outline_folder_black_24dp.png) しごと情報](/job/)
+```
+
+とします。
+
+`src/pages/4731.md` の「しごと情報」と「ブログ」のセクションにはそれぞれの最近の5件の記事のリンクを埋め込みます。
+Hugo　の仕様として可能な場合、埋め込みのためのプレースホルダーを記載してください。
