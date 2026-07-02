@@ -3,3 +3,6 @@ locale = "ja"
 title = "コンピュータ・ユニオン"
 contentDir = "src"
 publishDir = "_site"
+
+[markup.goldmark.renderer]
+unsafe = true

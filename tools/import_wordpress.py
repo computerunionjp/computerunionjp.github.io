@@ -26,6 +26,12 @@ from wpimport.writer import render_markdown_file  # noqa: E402
 
 KIND_ORDER = ["blog", "job", "pages", "contact", "errors"]
 
+# 本番の移行元サイト (画像・添付ファイルは常にここから取得する)
+DEFAULT_BASE_URL = "https://computer-union.jp"
+
+# --test 指定時 (または --dry-run / --limit 指定時) に仮定する --base-url の既定値
+TEST_BASE_URL = "https://computerunionjp.github.io/"
+
 
 def build_arg_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description=__doc__)
@@ -41,8 +47,12 @@ def build_arg_parser() -> argparse.ArgumentParser:
     )
     parser.add_argument(
         "--base-url",
-        default="https://computer-union.jp",
-        help="移行元サイトのベース URL (既定: https://computer-union.jp)",
+        default=None,
+        help=(
+            "移行先サイト自身のベース URL (既定: 通常時は "
+            f"{DEFAULT_BASE_URL} 、--test 指定時 (または後述のとおり --test が仮定される場合) は "
+            f"{TEST_BASE_URL})"
+        ),
     )
     parser.add_argument(
         "--no-download",
@@ -57,13 +67,22 @@ def build_arg_parser() -> argparse.ArgumentParser:
     parser.add_argument(
         "--dry-run",
         action="store_true",
-        help="ファイルを書き出さずに、分類結果の集計のみ表示する",
+        help="ファイルを書き出さずに、分類結果の集計のみ表示する (--test も仮定される)",
     )
     parser.add_argument(
         "--limit",
         type=int,
         default=None,
-        help="動作確認用に、処理する記事数を先頭から N 件に制限する",
+        help="動作確認用に、処理する記事数を先頭から N 件に制限する (--test も仮定される)",
+    )
+    parser.add_argument(
+        "--test",
+        action="store_true",
+        help=(
+            "テストモードで実行する。--base-url の既定値が "
+            f"{TEST_BASE_URL} になり、本文中の「お問い合わせ」へのリンクは "
+            "/contact/ ではなく移行元サイトの実際のお問い合わせページ URL になる"
+        ),
     )
     return parser
 
@@ -82,6 +101,10 @@ def main() -> int:
     args = build_arg_parser().parse_args()
     input_path = Path(args.input)
     output_root = Path(args.output)
+
+    # --dry-run または --limit が指定された場合は --test も指定されているものとみなす。
+    test_mode = args.test or args.dry_run or args.limit is not None
+    base_url = args.base_url or (TEST_BASE_URL if test_mode else DEFAULT_BASE_URL)
 
     if not input_path.exists():
         print(f"error: 入力ファイルが見つかりません: {input_path}", file=sys.stderr)
@@ -108,8 +131,26 @@ def main() -> int:
     if not args.dry_run and not args.no_clean:
         clean_output(output_root)
 
+    # テストモードでは「お問い合わせ」へのリンクを、移行先の実際の URL に差し替える。
+    contact_post_id = None
+    contact_override_url = None
+    if test_mode:
+        for item, kind in classified:
+            if kind == "contact":
+                contact_post_id = item.post_id
+                contact_override_url = item.link or None
+                break
+
     asset_manager = AssetManager(download=not args.no_download)
-    processor = ContentProcessor(args.base_url, asset_manager, url_map)
+    processor = ContentProcessor(
+        base_url,
+        asset_manager,
+        url_map,
+        asset_base_url=DEFAULT_BASE_URL,
+        contact_post_id=contact_post_id,
+        contact_override_url=contact_override_url,
+        shared_images_dir=output_root / "images",
+    )
 
     counts: dict[str, int] = {}
     error_items: list[tuple[int, str]] = []
@@ -134,6 +175,7 @@ def main() -> int:
             dest_path.write_text(file_text, encoding="utf-8")
 
     print("=== インポート結果 ===")
+    print(f"  test_mode: {test_mode} / base_url: {base_url}")
     for kind in KIND_ORDER:
         print(f"  {kind}: {counts.get(kind, 0)} 件")
 

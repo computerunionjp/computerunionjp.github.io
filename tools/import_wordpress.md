@@ -36,17 +36,38 @@ python3 -m venv venv
 | --- | --- |
 | `--input PATH` | 入力する WXR ファイルのパス (既定: `migration/imports/WordPress.xml`) |
 | `--output PATH` | 出力先ディレクトリ (既定: `src`) |
-| `--base-url URL` | 移行元サイトのベース URL (既定: `https://computer-union.jp`) |
+| `--base-url URL` | 移行先サイト自身のベース URL (既定: 通常時は `https://computer-union.jp`、テストモード時は `https://computerunionjp.github.io/`) |
 | `--no-download` | 画像・添付ファイルのダウンロードを行わず、Markdown のみ生成する |
 | `--no-clean` | 実行前に出力先ディレクトリを削除しない |
-| `--dry-run` | ファイルを書き出さず、分類結果の集計のみ表示する |
-| `--limit N` | 動作確認用に、処理する記事・固定ページを先頭から N 件に制限する |
+| `--dry-run` | ファイルを書き出さず、分類結果の集計のみ表示する (`--test` も指定されているものとみなす) |
+| `--limit N` | 動作確認用に、処理する記事・固定ページを先頭から N 件に制限する (`--test` も指定されているものとみなす) |
+| `--test` | テストモードで実行する。詳細は下記「テストモード (`--test`)」を参照 |
 
 例: ネットワークに接続せずに分類結果だけ確認する場合
 
 ```sh
 ./venv/bin/python tools/import_wordpress.py --dry-run --no-download
 ```
+
+### テストモード (`--test`)
+
+`--test` を指定すると、GitHub Pages などのプレビュー環境での確認を想定した挙動になります。
+
+- `--base-url` を明示的に指定していなければ、既定値が `https://computerunionjp.github.io/`
+  になります (明示的な `--base-url` は常に優先されます)。
+- 本文中の「お問い合わせ」へのリンクは、ローカルの `/contact/` ではなく、移行元サイト
+  (`https://computer-union.jp`) の実際のお問い合わせページ URL になります。
+  (テスト/プレビュー環境では問い合わせフォームが機能しない可能性があるためです)。
+- `--base-url` の値に関わらず、画像・添付ファイルのダウンロードは常に本番の移行元サイト
+  (`https://computer-union.jp`) から行われます。
+- 本文中のその他の内部リンク (`?p=` / `?page_id=` 形式) は、リンクが相対パス
+  (`/?p=123` など) であればこれまで通り移行後のパスに書き換えられますが、本番のドメイン
+  (`https://computer-union.jp/...`) を使った絶対 URL のリンクは、`--base-url` が
+  別のドメインになっているため自分自身へのリンクとは判定されず、元のまま (本番サイトへの
+  リンクとして) 残ります。
+- `--dry-run` または `--limit` を指定した場合も、`--test` を指定した場合と同じ挙動に
+  なります (動作確認のたびに毎回 `--test` を付ける手間を省くため)。
+- 実行結果の先頭に `test_mode` と実際に使用された `base_url` が表示されます。
 
 ## 3. 分類のルール
 
@@ -99,6 +120,21 @@ python3 -m venv venv
   - 「ブログ」 (`?cat=10`) → `/blog/`
 - **job** (「しごと情報」) の記事にある 2 列テーブルで、見出し行が空のもの (`|  |  |`) は
   `| 項目 | 内容 |` に置き換えます。
+- Material Icons のリガチャ文字列 (`<span class="material-icons">open_in_new</span>` など) を
+  実際のアイコン画像に置き換えます (いずれも `/images/` の下に移行元から
+  ダウンロードします)。
+  - `open_in_new` (別タブで開く外部リンク): `target="_blank" rel="noopener noreferrer"`
+    を保つ必要があるため、通常の Markdown リンクではなく生 HTML として埋め込みます
+    (例: `<a href="..." target="_blank" rel="noopener noreferrer">テキスト<img src="/images/external_link.png" alt="Open in new" /></a>`)。
+    このため `hugo.toml` で `markup.goldmark.renderer.unsafe = true` を有効にしています
+    (そうしないと Hugo が生 生 HTML を削除してしまいます)。
+  - `folder` (カテゴリフォルダへのリンク): 通常の Markdown 画像リンクとして埋め込みます
+    (例: `[![Folder](/images/outline_folder_black_24dp.png) しごと情報](/job/)`)。
+- `src/pages/4731.md` にあった WordPress の「最新の投稿」ブロック (wp:latest-posts) は
+  エクスポートに静的な HTML を含まないため、対応するカテゴリ (「しごと情報」 /
+  「ブログ」) の最新 5 件を動的に一覧表示する Hugo ショートコード (`{{< latest-posts
+  section="job" count="5" >}}` など) の呼び出しに置き換えます。ショートコードの実体は
+  `layouts/shortcodes/latest-posts.html` にあります。
 - 各 Markdown ファイルの front matter には、`title` / `date` / `draft` に加えて、
   `wordpress_id` (元の投稿ID) 、`wordpress_slug` (元のスラッグ)、`source_url` (元の URL) 、
   該当する場合は `categories` を出力しています。

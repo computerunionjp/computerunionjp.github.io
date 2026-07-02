@@ -18,12 +18,12 @@
 
 移行先の URL のパスは以下のようにします。
 
-- index.html 　　　　　<-- トップページ
+- index.html <-- トップページ
 - pages/nnnn.html <-- トップページ以外のページ
-- blog/nnnn.html 　<-- ブログ
-- job/nnnn.html 　　<-- しごと情報
-- images/* 　　　　　　　<-- 画像
-- contact.html 　　　<-- お問い合わせ
+- blog/nnnn.html <-- ブログ
+- job/nnnn.html <-- しごと情報
+- images/* <-- 画像
+- contact.html <-- お問い合わせ
 
 これらのコンテンツの原稿はHugoのためのメタ情報を追加した Markdown 形式として、
 'src' の下に URL のパスと同様のディレクトリに配置します。

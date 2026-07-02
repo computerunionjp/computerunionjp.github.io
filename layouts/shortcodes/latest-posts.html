@@ -1,0 +1,9 @@
+{{- $section := .Get "section" -}}
+{{- $count := int (.Get "count" | default 5) -}}
+{{- $pages := where site.RegularPages "Section" $section -}}
+{{- $pages = $pages.ByDate.Reverse -}}
+<ul class="latest-posts">
+  {{- range first $count $pages }}
+  <li><a href="{{ .RelPermalink }}">{{ .Title }}</a></li>
+  {{- end }}
+</ul>
