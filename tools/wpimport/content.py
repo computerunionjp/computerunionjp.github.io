@@ -79,20 +79,6 @@ def _extract_category_id(url: str) -> int | None:
     return None
 
 
-# 「しごと情報」(job) の記事にある 2 列テーブルで、見出し行が空のもの (`|  |  |`) を
-# `| 項目 | 内容 |` に置き換えるための正規表現。
-JOB_EMPTY_TABLE_HEADER_RE = re.compile(
-    r"^\|\s*\|\s*\|\s*\n\|\s*:?-+:?\s*\|\s*:?-+:?\s*\|\s*$",
-    re.MULTILINE,
-)
-
-
-def _fix_job_table_headers(markdown_text: str) -> str:
-    return JOB_EMPTY_TABLE_HEADER_RE.sub(
-        "| 項目 | 内容 |\n| --- | --- |", markdown_text
-    )
-
-
 def _is_internal_link(url: str, base_url: str) -> bool:
     if url.startswith("#"):
         return False
@@ -304,8 +290,5 @@ class ContentProcessor:
             markdown_text = markdown_text.replace(placeholder, raw_html)
 
         markdown_text = re.sub(r"\n{3,}", "\n\n", markdown_text.strip()) + "\n"
-
-        if kind == KIND_JOB:
-            markdown_text = _fix_job_table_headers(markdown_text)
 
         return markdown_text, has_bundle_assets["flag"]

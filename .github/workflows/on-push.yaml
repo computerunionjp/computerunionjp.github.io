@@ -6,6 +6,7 @@ on:
       - ".vscode/**/*"
       - "docs/**/*"
       - "migration/**/*"
+      - "sample/**/*"
       - "test/**/*"
       - "tools/**/*"
       - "README.md"
