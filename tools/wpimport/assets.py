@@ -14,10 +14,15 @@ class AssetManager:
     ダウンロードに失敗した URL は `failed` に記録され、処理は継続される。
     """
 
-    def __init__(self, download: bool = True, timeout: int = 15, session: requests.Session | None = None):
-        self.download = download
-        self.timeout = timeout
-        self.session = session or requests.Session()
+    def __init__(
+        self,
+        download: bool = True,
+        timeout: int = 15,
+        session: requests.Session | None = None,
+    ):
+        self.download: bool = download
+        self.timeout: int = timeout
+        self.session: requests.Session = session or requests.Session()
         self._cache: dict[str, bytes | None] = {}
         self.failed: list[tuple[str, str]] = []
         self.saved: set[str] = set()
@@ -46,6 +51,6 @@ class AssetManager:
         if data is None:
             return False
         dest_path.parent.mkdir(parents=True, exist_ok=True)
-        dest_path.write_bytes(data)
+        _ = dest_path.write_bytes(data)
         self.saved.add(url)
         return True

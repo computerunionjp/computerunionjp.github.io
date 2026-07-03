@@ -1,12 +1,13 @@
 {{ define "main" }}
 <main>
   <h1>
+    <span class="material-symbols-outlined">folder</span>
     {{ if eq .Section "blog" }}ブログ{{ else if eq .Section "job" }}しごと情報{{
     else }}{{ .Title }}{{ end }}
   </h1>
   {{ $sorted := .Pages.ByDate.Reverse }} {{ if or (eq .Section "blog") (eq
   .Section "job") }} {{ $paginator := .Paginate $sorted 25 }}
-  <ul>
+  <ul class="articles">
     {{ range $paginator.Pages }}
     <li><a href="{{ .Permalink }}">{{ .Title }}</a></li>
     {{ end }}

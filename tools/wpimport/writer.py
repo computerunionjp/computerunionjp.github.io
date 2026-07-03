@@ -34,8 +34,10 @@ def _wp_date_to_iso(post_date_gmt: str) -> str | None:
     return dt.strftime("%Y-%m-%dT%H:%M:%SZ")
 
 
-def build_front_matter(item: WPItem, kind: str) -> dict:
-    data: dict = {
+def build_front_matter(
+    item: WPItem, kind: str
+) -> dict[str, str | list[str] | int | bool]:
+    data: dict[str, str | list[str] | int | bool] = {
         "title": item.title or f"(無題 - WordPress ID {item.post_id})",
     }
 

@@ -16,6 +16,7 @@
         font-family: sans-serif;
         margin: 0;
         color: #222;
+        line-height: 175%;
       }
       a {
         color: #00838f;
@@ -27,10 +28,6 @@
         overflow: hidden;
         clip: rect(0, 0, 0, 0);
         white-space: nowrap;
-      }
-      .material-icons {
-        vertical-align: text-bottom;
-        font-size: 1.1em;
       }
       .site-header,
       .site-footer {
@@ -77,13 +74,8 @@
         margin: 1rem 0;
         font-size: 0.9rem;
       }
-      .pagination {
-        margin: 1rem 0;
-      }
-      .pagination ul {
+      .articles {
         list-style: none;
-        display: flex;
-        flex-wrap: wrap;
         gap: 0.5rem;
         margin: 0;
         padding: 0;
@@ -118,7 +110,11 @@
         padding-left: 1rem;
         display: flex;
         gap: 1rem;
+        margin: 1rem 0;
 
+        a {
+          text-decoration: none;
+        }
         .disabled,
         .active {
           a {
@@ -126,9 +122,11 @@
             cursor: default;
           }
         }
-        a {
-          text-decoration: none;
-        }
+      }
+      .return_index {
+        margin: 0;
+        padding: 0;
+        text-align: right;
       }
       table {
         border-collapse: collapse;

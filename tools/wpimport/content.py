@@ -5,9 +5,10 @@ from __future__ import annotations
 import html
 import re
 from pathlib import Path
+from typing import Callable
 from urllib.parse import parse_qs, urljoin, urlsplit
 
-from bs4 import BeautifulSoup, Comment
+from bs4 import BeautifulSoup, Comment, Tag
 from markdownify import markdownify as html_to_markdown
 
 from .assets import AssetManager
@@ -88,14 +89,14 @@ def _is_internal_link(url: str, base_url: str) -> bool:
     return urlsplit(url).netloc == base_netloc
 
 
-def _material_icon_names(anchor) -> set[str]:
+def _material_icon_names(anchor: Tag) -> set[str]:
     return {
         span.get_text(strip=True)
         for span in anchor.find_all("span", class_="material-icons")
     }
 
 
-def _remove_material_icon_spans(anchor) -> None:
+def _remove_material_icon_spans(anchor: Tag) -> None:
     for span in anchor.find_all("span", class_="material-icons"):
         if not getattr(span, "decomposed", False):
             span.decompose()
@@ -132,22 +133,20 @@ class ContentProcessor:
     ):
         # base_url: 本文中の絶対 URL リンクが「自分自身へのリンク」かどうかを
         # 判定するためのベース URL (テストモードではテスト用のドメインになる)。
-        self.base_url = base_url
+        self.base_url: str = base_url
         # asset_base_url: 相対パスの画像・添付ファイル URL を解決する際に使うベース URL。
         # 画像は常に移行元の実サイトから取得する必要があるため、base_url とは独立にする。
-        self.asset_base_url = asset_base_url or base_url
-        self.asset_manager = asset_manager
-        self.url_map = url_map
+        self.asset_base_url: str = asset_base_url or base_url
+        self.asset_manager: AssetManager = asset_manager
+        self.url_map: dict[int, str] = url_map
         # テストモードで「お問い合わせ」へのリンクを特別扱いするための情報。
-        self.contact_post_id = contact_post_id
-        self.contact_override_url = contact_override_url
+        self.contact_post_id: int | None = contact_post_id
+        self.contact_override_url: str | None = contact_override_url
         # Material Icons の置き換え画像 (open_in_new / folder) の保存先。
         # 記事の種別に関わらず常に共有の images ディレクトリに配置する。
-        self.shared_images_dir = shared_images_dir
+        self.shared_images_dir: Path | None = shared_images_dir
 
-    def _resolve_href(
-        self, href: str, kind: str, post_id: int, image_dest_dir: Path, local_asset_ref
-    ) -> str:
+    def _resolve_href(self, href: str, local_asset_ref: Callable[[str], str]) -> str:
         if _is_upload_url(href):
             return local_asset_ref(href)
         if _is_internal_link(href, self.base_url):
@@ -171,7 +170,7 @@ class ContentProcessor:
         if self.shared_images_dir is None:
             return
         absolute_url = urljoin(self.asset_base_url, relative_src)
-        self.asset_manager.save(absolute_url, self.shared_images_dir / filename)
+        _ = self.asset_manager.save(absolute_url, self.shared_images_dir / filename)
 
     def process(
         self, html_text: str, kind: str, post_id: int, image_dest_dir: Path
@@ -196,9 +195,9 @@ class ContentProcessor:
                 placeholder_counter["n"] += 1
                 placeholder = f"ZZWPIMPORTHTML{placeholder_counter['n']}ZZ"
                 html_placeholders[placeholder] = shortcode
-                comment.replace_with(placeholder)
+                _ = comment.replace_with(placeholder)
             else:
-                comment.extract()
+                _ = comment.extract()
 
         local_refs: dict[str, str] = {}
         counter = {"n": 0}
@@ -220,12 +219,12 @@ class ContentProcessor:
                 filename = basename
                 ref = f"/images/{filename}"
             absolute_url = urljoin(self.asset_base_url, url)
-            self.asset_manager.save(absolute_url, image_dest_dir / filename)
+            _ = self.asset_manager.save(absolute_url, image_dest_dir / filename)
             local_refs[url] = ref
             return ref
 
         for img in soup.find_all("img"):
-            src = img.get("src")
+            src = f"{img.get('src')}"
             if src and _is_upload_url(src):
                 img["src"] = local_asset_ref(src)
 
@@ -233,16 +232,12 @@ class ContentProcessor:
         # 実際のアイコン画像に置き換える。open_in_new は target/rel を維持する必要があるため
         # Markdown 変換をバイパスして生の HTML のまま埋め込む (上で作成したプレースホルダを共用する)。
         for anchor in soup.find_all("a"):
-            href = anchor.get("href")
+            href = f"{anchor.get('href')}"
             icon_names = _material_icon_names(anchor)
 
             if "open_in_new" in icon_names:
                 resolved_href = (
-                    self._resolve_href(
-                        href, kind, post_id, image_dest_dir, local_asset_ref
-                    )
-                    if href
-                    else href
+                    self._resolve_href(href, local_asset_ref) if href else href
                 )
                 _remove_material_icon_spans(anchor)
                 text = anchor.get_text()
@@ -256,7 +251,7 @@ class ContentProcessor:
                 placeholder_counter["n"] += 1
                 placeholder = f"ZZWPIMPORTHTML{placeholder_counter['n']}ZZ"
                 html_placeholders[placeholder] = raw_html
-                anchor.replace_with(placeholder)
+                _ = anchor.replace_with(placeholder)
                 continue
 
             if "folder" in icon_names:
@@ -266,16 +261,14 @@ class ContentProcessor:
                     if span.get_text(strip=True) != "folder":
                         continue
                     img_tag = soup.new_tag("img", src=FOLDER_ICON_PATH, alt="Folder")
-                    span.replace_with(img_tag)
-                    img_tag.insert_after(" ")
+                    _ = span.replace_with(img_tag)
+                    _ = img_tag.insert_after(" ")
                 self._download_shared_icon(
                     FOLDER_ICON_SRC, "outline_folder_black_24dp.png"
                 )
 
             if href:
-                anchor["href"] = self._resolve_href(
-                    href, kind, post_id, image_dest_dir, local_asset_ref
-                )
+                anchor["href"] = self._resolve_href(href, local_asset_ref)
 
         cleaned_html = str(soup)
         markdown_text = html_to_markdown(

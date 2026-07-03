@@ -10,8 +10,8 @@ Python 3 の `venv` を使います。プロジェクトのルートディレク
 実行してください。
 
 ```sh
-python -m venv venv
-./venv/bin/pip install -r requirements.txt
+python -m venv .venv
+./.venv/bin/pip install -r requirements.txt
 ```
 
 Mac OS のシステムの　Python を使う場合は `python` を `python3` に置き換えてください。
