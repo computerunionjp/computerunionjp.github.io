@@ -189,7 +189,14 @@ class ContentProcessor:
 
     def process(
         self, html_text: str, kind: str, post_id: int, image_dest_dir: Path
-    ) -> str:
+    ) -> tuple[str, bool]:
+        """HTML を Markdown に変換する。
+
+        戻り値は (markdown_text, has_bundle_assets) のタプル。
+        has_bundle_assets は、kind が LOCAL_NUMBERED_KINDS の場合に、記事本文中に
+        ローカル番号付きで配置すべき画像・添付ファイルが 1 つ以上あったかどうかを示す
+        (Page Bundle にすべきかの判断に使う)。
+        """
         soup = BeautifulSoup(html_text or "", "html.parser")
 
         # Gutenberg のブロックコメント (<!-- wp:xxx --> など) を含む HTML コメントを除去。
@@ -209,6 +216,7 @@ class ContentProcessor:
 
         local_refs: dict[str, str] = {}
         counter = {"n": 0}
+        has_bundle_assets = {"flag": False}
 
         def local_asset_ref(url: str) -> str:
             if url in local_refs:
@@ -218,7 +226,10 @@ class ContentProcessor:
             ext = basename.rsplit(".", 1)[-1].lower() if "." in basename else "jpg"
             if kind in LOCAL_NUMBERED_KINDS:
                 filename = f"{post_id}_{counter['n']:03d}.{ext}"
+                # この種別の記事は Page Bundle (例: blog/{id}/index.md) として出力されるため、
+                # 画像は index.md と同じディレクトリに配置される。相対ファイル名で参照すればよい。
                 ref = filename
+                has_bundle_assets["flag"] = True
             else:
                 filename = basename
                 ref = f"/images/{filename}"
@@ -254,7 +265,7 @@ class ContentProcessor:
                     f'<a href="{html.escape(resolved_href or "")}" '
                     'target="_blank" rel="noopener noreferrer">'
                     f"{html.escape(text)}"
-                    f'<img src="{EXTERNAL_LINK_ICON_PATH}" alt="Open in new" /></a>'
+                    f'<span class="material-symbols-outlined">open_in_new</span></a>'
                 )
                 placeholder_counter["n"] += 1
                 placeholder = f"ZZWPIMPORTHTML{placeholder_counter['n']}ZZ"
@@ -297,4 +308,4 @@ class ContentProcessor:
         if kind == KIND_JOB:
             markdown_text = _fix_job_table_headers(markdown_text)
 
-        return markdown_text
+        return markdown_text, has_bundle_assets["flag"]

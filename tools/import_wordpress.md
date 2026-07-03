@@ -26,7 +26,8 @@ python3 -m venv venv
 画像・添付ファイルを生成します。
 
 既定では **差分インポート** です。すでに出力済みのファイル (WordPress の投稿 ID ごとの
-`{id}.md`) は削除せず、1度もインポートしていない記事・ページだけを追加します。これにより、
+`{id}.md` または `{id}/index.md`) は削除せず、1度もインポートしていない記事・ページだけを
+追加します。これにより、
 `migration/imports/WordPress.xml` を WordPress から改めてエクスポートしても、
 既にインポート済みのファイル (手作業で修正したものを含む) を安全に残したまま、
 新しい記事だけを取り込めます。
@@ -116,9 +117,15 @@ python3 -m venv venv
 - 本文中の `<img>` タグが参照している画像、および `wp-content/uploads` 配下を指す
   `<a href>` (PDF・Word・Excel などの添付ファイル) を対象に、移行元サイトから
   ダウンロードします。
-- **blog / job / errors** の記事内にある画像・添付ファイルは、記事と同じディレクトリに
-  `{WordPress の投稿ID}_{連番3桁}.{拡張子}` という名前で配置し、本文中の参照も
-  そのファイル名に書き換えます (例: `src/blog/4779_001.png`)。
+- **blog / job / errors** の記事に画像・添付ファイルがある場合、その記事は Hugo の
+  **Page Bundle** (`src/blog/{WordPress の投稿 ID}/index.md`) として出力され、
+  画像・添付ファイルは `{WordPress の投稿 ID}_{連番3桁}.{拡張子}` という名前で
+  `index.md` と同じディレクトリに配置します (例: `src/blog/4779/index.md` と
+  `src/blog/4779/4779_001.png`)。本文中の参照は同じディレクトリ内のファイルを指す
+  相対パスに書き換えます (例: `![](4779_001.png)`)。
+  画像・添付ファイルがない記事は、従来通り単一の Markdown ファイル
+  (`src/blog/{WordPress の投稿 ID}.md`) として出力されます。どちらの形式でも
+  Hugo の公開 URL (例: `/blog/4779/`) は変わりません。
 - **それ以外 (pages / contact)** の画像・添付ファイルは `src/images/` の下に、
   移行元と同じファイル名で配置します。本文中の参照は `/images/{ファイル名}` に
   書き換えます。
@@ -148,7 +155,7 @@ python3 -m venv venv
   ダウンロードします)。
   - `open_in_new` (別タブで開く外部リンク): `target="_blank" rel="noopener noreferrer"`
     を保つ必要があるため、通常の Markdown リンクではなく生 HTML として埋め込みます
-    (例: `<a href="..." target="_blank" rel="noopener noreferrer">テキスト<img src="/images/external_link.png" alt="Open in new" /></a>`)。
+    (例: `<a href="..." target="_blank" rel="noopener noreferrer">テキスト<span class="material-symbols-outlined">open_in_new</span></a>`)。
     このため `hugo.toml` で `markup.goldmark.renderer.unsafe = true` を有効にしています
     (そうしないと Hugo が生 生 HTML を削除してしまいます)。
   - `folder` (カテゴリフォルダへのリンク): 通常の Markdown 画像リンクとして埋め込みます
@@ -164,6 +171,10 @@ python3 -m venv venv
   - `draft` は WordPress 上のステータスが `publish` 以外 (`draft` / `private` など) の
     場合に `true` になります。Hugo で下書きも含めてビルドする場合は
     `hugo --buildDrafts` を使ってください。
+  - `date` は `wp:post_date_gmt` から変換します。WordPress 上で日付未設定
+    (`0000-00-00 00:00:00` など) の下書きの場合は `wp:post_modified_gmt` に
+    フォールバックします (`date` が前提ファイルにないと Hugo の既定フォールバックによって
+    並び順が不安定になるため)。
 - お問い合わせページ本文にある Contact Form 7 のショートコード
   (`[contact-form-7 id="..." ...]`) は変換されず、そのままテキストとして残ります。
   実際のフォーム機能は別途 Hugo 側で実装する必要があります。

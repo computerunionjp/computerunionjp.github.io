@@ -179,25 +179,43 @@ def main() -> int:
         if kind == "errors":
             error_items.append((item.post_id, item.title))
 
-        dest_path = output_path(kind, item.post_id, output_root)
+        is_bundleable = kind in LOCAL_NUMBERED_KINDS
+        bundle_path: Path | None = None
+        flat_path: Path | None = None
+
+        if is_bundleable:
+            # 画像を含む可能性がある種別は、実際に画像があれば Page Bundle
+            # (blog/{id}/index.md) 、なければ単一ファイル (blog/{id}.md) として出力する。
+            # どちらになるかは本文を処理してみないと分からないため、既存判定は
+            # 両方のパスを確認する。
+            bundle_dir = output_root / KIND_DIR[kind] / str(item.post_id)
+            bundle_path = bundle_dir / "index.md"
+            flat_path = output_root / KIND_DIR[kind] / f"{item.post_id}.md"
+            already_exists = bundle_path.exists() or flat_path.exists()
+            image_dir = bundle_dir
+        else:
+            already_exists = output_path(kind, item.post_id, output_root).exists()
+            image_dir = output_root / "images"
 
         # --refresh が指定されていない場合、既にインポート済み (出力ファイルが存在する)
         # の記事・ページは再処理せずスキップする (画像の再ダウンロードも行わない)。
-        if dest_path.exists() and not args.refresh:
+        if already_exists and not args.refresh:
             counts[kind]["existing"] += 1
             continue
 
         counts[kind]["new"] += 1
         new_items.append((item.post_id, item.title))
 
-        image_dir = (
-            dest_path.parent if kind in LOCAL_NUMBERED_KINDS else output_root / "images"
-        )
-
-        markdown_body = processor.process(
+        markdown_body, has_bundle_assets = processor.process(
             item.content_html, kind, item.post_id, image_dir
         )
         file_text = render_markdown_file(item, kind, markdown_body)
+
+        if is_bundleable:
+            assert bundle_path is not None and flat_path is not None
+            dest_path = bundle_path if has_bundle_assets else flat_path
+        else:
+            dest_path = output_path(kind, item.post_id, output_root)
 
         if not args.dry_run:
             dest_path.parent.mkdir(parents=True, exist_ok=True)

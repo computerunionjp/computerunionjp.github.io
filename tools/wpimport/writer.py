@@ -39,7 +39,13 @@ def build_front_matter(item: WPItem, kind: str) -> dict:
         "title": item.title or f"(無題 - WordPress ID {item.post_id})",
     }
 
-    date = _wp_date_to_iso(item.post_date_gmt)
+    # post_date_gmt が "0000-00-00 00:00:00" (WordPress で日付未設定の下書きなどに見られる) のような
+    # 無効値の場合、post_modified_gmt にフォールバックする。date が前提ファイルに
+    # 存在しないと Hugo の既定フォールバック (ファイルの更新日時など) によって
+    # ソート順が不安定になるため、必ず何らかの日付を設定する。
+    date = _wp_date_to_iso(item.post_date_gmt) or _wp_date_to_iso(
+        item.post_modified_gmt
+    )
     if date:
         data["date"] = date
 

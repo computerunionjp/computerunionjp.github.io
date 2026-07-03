@@ -4,10 +4,19 @@
     {{ if eq .Section "blog" }}ブログ{{ else if eq .Section "job" }}しごと情報{{
     else }}{{ .Title }}{{ end }}
   </h1>
+  {{ $sorted := .Pages.ByDate.Reverse }} {{ if or (eq .Section "blog") (eq
+  .Section "job") }} {{ $paginator := .Paginate $sorted 25 }}
   <ul>
-    {{ range .Pages.ByDate.Reverse }}
+    {{ range $paginator.Pages }}
     <li><a href="{{ .Permalink }}">{{ .Title }}</a></li>
     {{ end }}
   </ul>
+  {{ template "_internal/pagination.html" . }} {{ else }}
+  <ul>
+    {{ range $sorted }}
+    <li><a href="{{ .Permalink }}">{{ .Title }}</a></li>
+    {{ end }}
+  </ul>
+  {{ end }}
 </main>
 {{ end }}

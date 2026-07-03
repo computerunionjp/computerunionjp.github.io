@@ -33,6 +33,7 @@ class WPItem:
     link: str
     status: str
     post_date_gmt: str
+    post_modified_gmt: str
     post_name: str
     content_html: str
     categories: list[WPCategory] = field(default_factory=list)
@@ -46,7 +47,9 @@ def parse_items(xml_path: str | Path) -> list[WPItem]:
     tree = ET.parse(xml_path)
     channel = tree.getroot().find("channel")
     if channel is None:
-        raise ValueError("channel 要素が見つかりません。WordPress の WXR ファイルではない可能性があります。")
+        raise ValueError(
+            "channel 要素が見つかりません。WordPress の WXR ファイルではない可能性があります。"
+        )
 
     items: list[WPItem] = []
     for el in channel.findall("item"):
@@ -75,6 +78,7 @@ def parse_items(xml_path: str | Path) -> list[WPItem]:
                 link=(el.findtext("link") or "").strip(),
                 status=(el.findtext(_wp("status")) or "").strip(),
                 post_date_gmt=(el.findtext(_wp("post_date_gmt")) or "").strip(),
+                post_modified_gmt=(el.findtext(_wp("post_modified_gmt")) or "").strip(),
                 post_name=(el.findtext(_wp("post_name")) or "").strip(),
                 content_html=el.findtext(_content("encoded")) or "",
                 categories=categories,

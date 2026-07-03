@@ -1,6 +1,8 @@
 {{ define "main" }}
 <main>
   <h1>{{ .Title }}</h1>
-  {{ .Content }}
+  {{ $isPostSection := or (eq .Section "blog") (eq .Section "job") }} {{ if
+  $isPostSection }}{{ partial "post-nav.html" . }}{{ end }} {{ .Content }} {{ if
+  $isPostSection }}{{ partial "post-nav.html" . }}{{ end }}
 </main>
 {{ end }}
