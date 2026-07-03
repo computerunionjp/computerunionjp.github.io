@@ -1,4 +1,5 @@
-baseURL = "https://computer-union.jp/"
+# baseURL = "https://computer-union.jp/
+baseURL = "https://computerunionjp.github.io/"
 locale = "ja"
 title = "コンピュータ・ユニオン"
 contentDir = "src"
