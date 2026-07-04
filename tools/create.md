@@ -1,10 +1,15 @@
 # テンプレート挿入ツールの使い方
 
+> 以下の説明ではディレクトリ（フォルダ）名の区切りに `/` （スラッシュ）を使っています。
+> Windows で作業する場合は `\` （バックスラッシュ）または `¥` （半角の￥）に読み替えてください。
+
 新規のページIDを採番して「ブログ」または「しごと情報」の原稿のテンプレートを
 `src` の下に作成します。
 日付　( 3行目の date: ) は自動で設定します。
 
-## 1. セットアップ (初回のみ)
+Python版 `tools/create.py` と PowerShell版 `tools/create.ps1` があります。
+
+## 1. Python版のセットアップ (初回のみ)
 
 Python 3 の `venv` を使います。プロジェクトのルートディレクトリ (`hugo.toml`
 がある場所) で実行してください。
@@ -18,7 +23,9 @@ Mac OS のシステムの　Python を使う場合は `python` を `python3` に
 
 ## 2. 実行方法
 
-同じくプロジェクトのルートディレクトリで実行してください。
+プロジェクトのルートディレクトリで実行してください。
+
+### 2.1 Python版
 
 ```sh
 $ ./.venv/bin/python tools/create.py
@@ -30,4 +37,28 @@ $ ./.venv/bin/python tools/create.py
 ブログ（画像有り）を選択しました。
 src/blog/8083/index.md を作成します。
 実行しますか？ [Y/n]: y
+```
+
+## 2.2 Windows PowerShell 5.1
+
+```powershell
+PS> .\tools\create.ps1
+```
+
+または
+
+```cmd
+C:\...\computerunionjp> powershell.exe -File .\tools\create.ps1
+```
+
+## 2.3 Windows PowerShell 7
+
+```powershell
+PS> .\tools\create.ps1
+```
+
+または
+
+```cmd
+C:\...\computerunionjp> pwsh .\tools\create.ps1
 ```
