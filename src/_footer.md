@@ -15,19 +15,20 @@ build:
 <span class="material-symbols-outlined">mail</span> info@computer-union.jp<br>
 <span class="material-symbols-outlined">phone</span> 03-5603-4572<br>
 <span class="material-symbols-outlined">fax</span> 03-5603-7265<br>
-<br>
+
 〒 110-0003<br>
 東京都台東区根岸3-25-6<br>
-タブレット根岸2F<br>
-<br>
+タブレット根岸2F
+
 <span class="material-symbols-outlined">directions_walk</span> JR東日本 鴬谷駅北口下車 三河島方面へ徒歩5分<br>
 <a href="https://goo.gl/maps/NntBJMXryNATiAwUA"><span class="material-symbols-outlined">place</span> Google Maps</a>
 
-**関西事務所**<br>
+**関西事務所**
+
 〒 532-0011<br>
 大阪市淀川区西中島3-16-17<br>
 丸善西中島ビル4階2号室<br>
-<br>
+
 <span class="material-symbols-outlined">directions_walk</span> 阪急京都本線 南方駅下車徒歩1分<br>
 <span class="material-symbols-outlined">directions_walk</span> 大阪メトロ御堂筋線 西中島南方駅下車徒歩2分<br>
 <a href="https://goo.gl/maps/99tg1f6Ns7i11Foq9"><span class="material-symbols-outlined">place</span> Google Maps</a>
@@ -39,11 +40,10 @@ build:
 <a href="https://www.threads.net/@cuswsxn_"><img src="/images/threads.png" alt="Threads" width="32" height="32"></a>
 <a href="https://www.instagram.com/cuswsxn_"><img src="/images/Instagram.png" alt="Instagram" width="32" height="32"></a>
 
-![](/images/qrcomputerunionjp.png)
+![https://computer-union.jp/](/images/qrcomputerunionjp.png)
 
 [プライバシーポリシー](/pages/6821/)
 
 ©︎ コンピュータ・ユニオン
-<!--
+
 ヘッダの写真は [ENIAC](https://commons.wikimedia.org/wiki/File:ENIAC_Penn1.jpg) です。
--->

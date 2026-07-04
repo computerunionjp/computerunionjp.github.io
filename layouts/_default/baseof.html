@@ -17,6 +17,10 @@
         margin: 0;
         color: #222;
         line-height: 175%;
+
+        > img {
+          margin: 0;
+        }
       }
       a {
         color: #00838f;
@@ -31,17 +35,19 @@
       }
       .site-header,
       .site-footer {
-        padding: 1rem;
+        margin: 0;
+        padding: 0.5rem 1rem;
       }
       .site-header {
         display: flex;
         flex-wrap: wrap;
-        align-items: center;
+        justify-content: space-between;
+        align-items: bottom;
         gap: 1rem;
       }
       .site-title {
         margin: 0;
-        font-size: 1.25rem;
+        font-size: 1.6rem;
       }
       .site-title a {
         text-decoration: none;
@@ -50,12 +56,41 @@
         list-style: none;
         display: flex;
         flex-wrap: wrap;
-        gap: 1rem;
+        gap: 0.25rem;
         margin: 0;
         padding: 0;
+
+        li {
+          padding: 0 0.75rem;
+        }
       }
       .site-footer {
         font-size: 0.9rem;
+      }
+      .site-search {
+        display: flex;
+        align-items: center;
+        padding: 0 0.25rem;
+        border-radius: 0.25rem;
+        outline: 1px solid darkslategrey;
+
+        input[type="search"] {
+          width: 256px;
+          appearance: none;
+          -webkit-appearance: none;
+          border: none;
+          outline: none;
+          height: 2rem;
+        }
+
+        button {
+          appearance: none;
+          -webkit-appearance: none;
+          border: none;
+          outline: none;
+          background-color: transparent;
+          cursor: pointer;
+        }
       }
       .content-wrap {
         max-width: 1200px;
@@ -145,5 +180,18 @@
     <div class="content-wrap">
       {{ block "main" . }}{{ end }} {{ partial "footer.html" . }}
     </div>
+
+    <script>
+      document
+        .getElementById("google-search-form")
+        .addEventListener("submit", function () {
+          const input = document.getElementById("search-word");
+          const prefix = "site:computer-union.jp ";
+
+          if (!input.value.startsWith(prefix)) {
+            input.value = prefix + input.value;
+          }
+        });
+    </script>
   </body>
 </html>
