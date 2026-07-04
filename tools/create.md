@@ -21,8 +21,7 @@ Mac OS のシステムの　Python を使う場合は `python` を `python3` に
 同じくプロジェクトのルートディレクトリで実行してください。
 
 ```sh
-$ ./venv/bin/python tools/create.py
-python tools/create.py
+$ ./.venv/bin/python tools/create.py
 記事の種類を選択してください。中止する場合は何も入力せずに Enter を押してください。
   1. しごと情報
   2. ブログ（画像無し）

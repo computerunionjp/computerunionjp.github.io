@@ -19,10 +19,13 @@ Mac OS のシステムの　Python を使う場合は `python` を `python3` に
 
 ## 2. 実行方法
 
-同じくプロジェクトのルートディレクトリで実行してください。
+`tools` は Python パッケージ (パッケージ内で相対インポートを使用) として実装されているため、
+`python tools/import_wordpress.py` のようにファイルを直接実行することはできません。
+必ず `-m` オプションでモジュールとして実行してください。同じくプロジェクトの
+ルートディレクトリ (`hugo.toml` がある場所) で実行してください。
 
 ```sh
-./venv/bin/python tools/import_wordpress.py
+./.venv/bin/python -m tools.import_wordpress
 ```
 
 実行すると `migration/imports/WordPress.xml` を読み込み、`src` 以下に Markdown ファイルと
@@ -65,13 +68,13 @@ Mac OS のシステムの　Python を使う場合は `python` を `python3` に
 例: 既存のインポート結果を全て作り直す場合
 
 ```sh
-./venv/bin/python tools/import_wordpress.py --refresh
+./.venv/bin/python -m tools.import_wordpress --refresh
 ```
 
 例: ネットワークに接続せずに分類結果だけ確認する場合
 
 ```sh
-./venv/bin/python tools/import_wordpress.py --dry-run --no-download
+./.venv/bin/python -m tools.import_wordpress --dry-run --no-download
 ```
 
 ### テストモード (`--test`)

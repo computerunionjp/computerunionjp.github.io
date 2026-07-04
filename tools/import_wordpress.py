@@ -11,19 +11,17 @@ import shutil
 import sys
 from pathlib import Path
 
-sys.path.insert(0, str(Path(__file__).resolve().parent))
-
-from wpimport.assets import AssetManager  # noqa: E402
-from wpimport.classify import (  # noqa: E402
+from .wpimport.assets import AssetManager
+from .wpimport.classify import (
     KIND_DIR,
     MIN_POST_ID,
     classify_item,
     output_path,
     public_url,
 )
-from wpimport.content import LOCAL_NUMBERED_KINDS, ContentProcessor  # noqa: E402
-from wpimport.parser import parse_items  # noqa: E402
-from wpimport.writer import render_markdown_file  # noqa: E402
+from .wpimport.content import LOCAL_NUMBERED_KINDS, ContentProcessor
+from .wpimport.parser import WPItem, parse_items
+from .wpimport.writer import render_markdown_file
 
 KIND_ORDER = ["blog", "job", "pages", "contact", "errors"]
 
@@ -36,17 +34,17 @@ TEST_BASE_URL = "https://computerunionjp.github.io/"
 
 def build_arg_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument(
+    _ = parser.add_argument(
         "--input",
         default="migration/imports/WordPress.xml",
         help="WordPress からエクスポートした XML ファイルのパス (既定: migration/imports/WordPress.xml)",
     )
-    parser.add_argument(
+    _ = parser.add_argument(
         "--output",
         default="src",
         help="Hugo の contentDir に相当する出力先ディレクトリ (既定: src)",
     )
-    parser.add_argument(
+    _ = parser.add_argument(
         "--base-url",
         default=None,
         help=(
@@ -55,12 +53,12 @@ def build_arg_parser() -> argparse.ArgumentParser:
             f"{TEST_BASE_URL})"
         ),
     )
-    parser.add_argument(
+    _ = parser.add_argument(
         "--no-download",
         action="store_true",
         help="画像・添付ファイルのダウンロードをスキップする (Markdown ファイルのみ生成)",
     )
-    parser.add_argument(
+    _ = parser.add_argument(
         "--refresh",
         action="store_true",
         help=(
@@ -69,7 +67,7 @@ def build_arg_parser() -> argparse.ArgumentParser:
             "の記事・ページだけを追加する"
         ),
     )
-    parser.add_argument(
+    _ = parser.add_argument(
         "--start",
         type=int,
         default=None,
@@ -78,18 +76,18 @@ def build_arg_parser() -> argparse.ArgumentParser:
             f"(既定: {MIN_POST_ID})"
         ),
     )
-    parser.add_argument(
+    _ = parser.add_argument(
         "--dry-run",
         action="store_true",
         help="ファイルを書き出さずに、分類結果の集計のみ表示する (--test も仮定される)",
     )
-    parser.add_argument(
+    _ = parser.add_argument(
         "--limit",
         type=int,
         default=None,
         help="動作確認用に、処理する記事数を先頭から N 件に制限する (--test も仮定される)",
     )
-    parser.add_argument(
+    _ = parser.add_argument(
         "--test",
         action="store_true",
         help=(
@@ -127,7 +125,7 @@ def main() -> int:
 
     items = parse_items(input_path)
 
-    classified: list[tuple] = []
+    classified: list[tuple[WPItem, str]] = []
     for item in items:
         kind = classify_item(item, min_post_id=start_id)
         if kind is None:

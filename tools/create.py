@@ -30,7 +30,7 @@ def main():
     else:
         print("無効な番号です。")
 
-    names = []
+    names: list[str] = []
     tools_dir = os.path.dirname(os.path.abspath(__file__))
     project_dir = os.path.dirname(tools_dir)
 
@@ -76,9 +76,9 @@ def main():
             ):
                 for line in tmpl:
                     if line.startswith("date:"):
-                        dest.write(f"date: '{now}'\n")
+                        _ = dest.write(f"date: '{now}'\n")
                     else:
-                        dest.write(line)
+                        _ = dest.write(line)
             break
         elif answer == "N":
             print("処理を中止します。")
