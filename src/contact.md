@@ -1,14 +1,15 @@
 ---
-title: お問い合わせ
+title:
 date: '2021-07-31T10:36:37Z'
 draft: false
 wordpress_id: 4650
-wordpress_slug: お問い合わせテスト
+wordpress_slug: お問い合わせ
 source_url: https://computer-union.jp/?page_id=4650
 ---
 
-[労働者供給事業](/pages/4732/)の定例説明会は毎週木曜日 19:00 ～ 20:00 （祝日、年末年始、夏期休暇を除く）にオンラインで実施しております。お急ぎの場合は別途、臨時説明会を開催しますのでご希望をお伝えください。
-
-職場のトラブルなど、労働者供給事業以外の内容のご相談も労働組合として承っております。
-
-[contact-form-7 id="4506" title="お問い合わせフォーム"]
+<iframe
+    src="https://docs.google.com/forms/d/e/1FAIpQLSdt5ehYnkFv5l23B6YwKp4h0hOWCl6UblMoYIGk_OStKkfdVQ/viewform?usp=header"
+    frameborder="0"
+    width="100%"
+    height="640px"
+></iframe>
