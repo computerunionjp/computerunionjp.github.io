@@ -9,7 +9,4 @@ source_url: https://computer-union.jp/?page_id=4650
 
 <iframe
     src="https://docs.google.com/forms/d/e/1FAIpQLSdt5ehYnkFv5l23B6YwKp4h0hOWCl6UblMoYIGk_OStKkfdVQ/viewform?usp=header"
-    frameborder="0"
-    width="100%"
-    height="640px"
 ></iframe>
