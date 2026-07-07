@@ -3,7 +3,8 @@ $secret = $argv[1];
 $zipFile = $argv[2];
 
 if ($secret !== "TO BE SET") {
-  exit("Invalid secret");
+  echo "Invalid secret";
+  exit(1);
 }
 
 $baseUrl =
@@ -12,6 +13,10 @@ $zipUrl = $baseUrl . "/" . $zipFile;
 $zipFile = "../../work/" . $zipFile;
 $unzipDir = "../";
 
+echo $zipFile;
 file_put_contents($zipFile, file_get_contents($zipUrl));
 
+echo " has downloaded";
+
 #exec("unzip -o $zipFile -d $unzipDir");
+echo " and extracted.";
