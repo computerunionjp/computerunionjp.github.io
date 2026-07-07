@@ -8,7 +8,7 @@ if ($secret !== "TO BE SET") {
 }
 
 $baseUrl =
-  "https://github.com/computerunionjp/computerunionjp.github.io/releases/download/";
+  "https://github.com/computerunionjp/computerunionjp.github.io/releases/download/latest";
 $zipUrl = $baseUrl . "/" . $zipFile;
 $zipFile = "../../work/" . $zipFile;
 $unzipDir = "../";
