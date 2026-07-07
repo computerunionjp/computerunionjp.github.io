@@ -24,6 +24,17 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v5
 
+      - name: Create ZIP
+        run: |
+          cd _site
+          zip -r ../site.zip .
+      - name: Create Release
+        uses: softprops/action-gh-release@v3
+        with:
+          files: site.zip
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
   deploy:
     environment:
       name: github-pages
@@ -38,14 +49,3 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v5
-
-      - name: Create ZIP
-        run: |
-          cd _site
-          zip -r ../site.zip .
-      - name: Create Release
-        uses: softprops/action-gh-release@v3
-        with:
-          files: site.zip
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
