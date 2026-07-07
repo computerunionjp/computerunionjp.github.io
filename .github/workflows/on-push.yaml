@@ -38,6 +38,10 @@ jobs:
           files: site.zip
           make_latest: true
           generate_release_notes: false
+      - name: Update site
+        run: |
+          curl --fail --show-error --silent \
+            "https://computer-union.jp/tools/update-site.php?token=${{ secrets.XSERVER_DEPLOY_TOKEN }}"
 
   deploy:
     environment:
