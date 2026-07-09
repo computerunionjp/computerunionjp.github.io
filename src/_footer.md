@@ -21,7 +21,7 @@ build:
 タブレット根岸2F
 
 <span class="material-symbols-outlined">directions_walk</span> JR東日本 鴬谷駅北口下車 三河島方面へ徒歩5分<br>
-<a href="https://goo.gl/maps/NntBJMXryNATiAwUA"><span class="material-symbols-outlined">place</span> Google Maps</a>
+<a href="https://maps.app.goo.gl/sUCVVuDLinZip2Dc8"><span class="material-symbols-outlined">place</span> Google Maps</a>
 
 **関西事務所**
 
@@ -31,7 +31,9 @@ build:
 
 <span class="material-symbols-outlined">directions_walk</span> 阪急京都本線 南方駅下車徒歩1分<br>
 <span class="material-symbols-outlined">directions_walk</span> 大阪メトロ御堂筋線 西中島南方駅下車徒歩2分<br>
-<a href="https://goo.gl/maps/99tg1f6Ns7i11Foq9"><span class="material-symbols-outlined">place</span> Google Maps</a>
+<a href="https://maps.app.goo.gl/wjjkcyhELXYT8Ry79">
+    <span class="material-symbols-outlined">place</span> Google Maps
+</a>
 
 <a href="https://twitter.com/cu_ssms"><img src="/images/twitter.png" alt="Twitter" width="32" height="32"></a>
 <a rel="me" href="https://fedibird.com/@cuswsxn"><img src="/images/mastodon.png" alt="Mastodon" width="32" height="32"></a>
@@ -42,8 +44,6 @@ build:
 
 ![https://computer-union.jp/](/images/qrcomputerunionjp.png)
 
-[プライバシーポリシー](/pages/6821/)
-
-©︎ コンピュータ・ユニオン
-
+[プライバシーポリシー](/pages/6821/)<br>
+©︎ コンピュータ・ユニオン<br>
 ヘッダの写真は [ENIAC](https://commons.wikimedia.org/wiki/File:ENIAC_Penn1.jpg) です。

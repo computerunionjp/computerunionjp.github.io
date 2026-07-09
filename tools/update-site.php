@@ -16,7 +16,7 @@ try {
 
   echo " has downloaded";
 
-  #exec("unzip -o $zipFile -d $unzipDir");
+  exec("unzip -o -d $unzipDir $zipFile");
   echo " and extracted.";
 
   http_response_code(200);
