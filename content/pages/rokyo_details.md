@@ -7,7 +7,7 @@ wordpress_slug: 労供の契約形式
 source_url: https://computer-union.jp/?page_id=4539
 ---
 
-[労働者供給事業](/pages/rokyo_overview/) / [説明会参加お申込み](https://computer-union.jp/?page_id=4650) / [組合員の声](/pages/rokyo_testimonials/) / [しごと情報](/job/)
+[労働者供給事業](/pages/rokyo_overview/) / {{< contact-link >}} / [組合員の声](/pages/rokyo_testimonials/) / [しごと情報](/job/)
 
 コンピュータ・ユニオンの労働者供給事業（労供事業、労供）の契約の形式には以下のようなものがあります。就労先の企業と調整して適切な契約の形を選びます。
 
@@ -39,4 +39,4 @@ source_url: https://computer-union.jp/?page_id=4539
 
 コンピュータ・ユニオンには、この労働者供給事業とは別に、<a href="https://ccu.or.jp/" target="_blank" rel="noopener noreferrer">企業組合コンピュータユニオン<span class="material-symbols-outlined">open_in_new</span></a> でWebサイト構築の請負や独自パッケージの開発などの仕事をしているメンバーがいます。一定の収入を保証できるものではないのですが、介護などのために常勤での勤務が難しい人、会社勤めが苦手な人、都会を離れて仕事をしたい人の選択肢としてご検討いただくことができます。
 
-[労働者供給事業](/pages/rokyo_overview/) / [説明会参加お申込み](https://computer-union.jp/?page_id=4650) / [組合員の声](/pages/rokyo_testimonials/) / [しごと情報](/job/)
+[労働者供給事業](/pages/rokyo_overview/) / {{< contact-link >}} / [組合員の声](/pages/rokyo_testimonials/) / [しごと情報](/job/)

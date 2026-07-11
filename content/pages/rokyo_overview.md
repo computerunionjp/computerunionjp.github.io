@@ -6,7 +6,7 @@ wordpress_id: 4732
 source_url: https://computer-union.jp/?page_id=4732
 ---
 
-[説明会参加お申込み](https://computer-union.jp/?page_id=4650) / [労供事業の契約の形](/pages/rokyo_details/) / [組合員の声](/pages/rokyo_testimonials/) / [しごと情報](/job/)
+{{< contact-link >}} / [労供事業の契約の形](/pages/rokyo_details/) / [組合員の声](/pages/rokyo_testimonials/) / [しごと情報](/job/)
 
 労働者供給事業（労供事業、労供）は <a href="https://laws.e-gov.go.jp/document?lawid=322AC0000000141" target="_blank" rel="noopener noreferrer">職安法45条<span class="material-symbols-outlined">open_in_new</span></a> に基づき、厚生労働大臣の許可を受けた労働組合などが無料で行うものです。派遣が禁止されている建設・港湾運送の他に、運転手、介護などいろいろな職種の労働組合が取り組んでいます。IT業界では私たちコンピュータ・ユニオンが許可を受けて実施しています。
 
@@ -44,4 +44,4 @@ IT業界では大きな開発プロジェクトに人が集められて、それ
 
 （注１）現在の制度が整うより以前に、個人事業主として契約していた時期がありました。これはコンプライアンス上好ましくない一人請負とみなされる可能性のある形です。新規の就労の契約は原則として[労供事業の契約の形](/pages/rokyo_details/)といたします。
 
-[説明会参加お申込み](https://computer-union.jp/?page_id=4650) / [労供事業の契約の形](/pages/rokyo_details/) / [組合員の声](/pages/rokyo_testimonials/) / [しごと情報](/job/)
+{{< contact-link >}} / [労供事業の契約の形](/pages/rokyo_details/) / [組合員の声](/pages/rokyo_testimonials/) / [しごと情報](/job/)
