@@ -21,16 +21,16 @@
 
 移行元の "労働者供給事業 の案件の内容・条件の例は しごと情報 をご参照ください"
 から "ヘッダの写真は ENIAC です。" までをフッターの内容とします。
-Hugo の仕様として可能であればこれらの内容を Markdown 形式の `src/_footer.md` としてください。
+Hugo の仕様として可能であればこれらの内容を Markdown 形式の `content/_footer.md` としてください。
 
 ### 4.3. トップページ
 
-トップページの内容は `src/pages/4731.md` としてください。
+トップページの内容は `content/pages/4731.md` としてください。
 
 ### 4.4. 記事の目次
 
 「ブログ」と「しごと情報」の目次は `/blog/` と `/job/` に表示します。
-「ブログ」と「しごと情報」の最近の投稿の目次を `src/pages/4731.md` の `{{< latest-posts section="blog" count="5" >}}` と `{{< latest-posts section="job" count="5" >}}` を使用して表示します。
+「ブログ」と「しごと情報」の最近の投稿の目次を `content/pages/4731.md` の `{{< latest-posts section="blog" count="5" >}}` と `{{< latest-posts section="job" count="5" >}}` を使用して表示します。
 
 ### 4.5. お問い合わせ
 

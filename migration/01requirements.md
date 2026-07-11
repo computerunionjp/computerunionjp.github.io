@@ -26,8 +26,8 @@
 - contact.html <-- お問い合わせ
 
 これらのコンテンツの原稿はHugoのためのメタ情報を追加した Markdown 形式として、
-'src' の下に URL のパスと同様のディレクトリに配置します。
-例えば、`blog/nnnn.html` の原稿は `src/blog/nnnn.md` に配置します。
+'content' の下に URL のパスと同様のディレクトリに配置します。
+例えば、`blog/nnnn.html` の原稿は `content/blog/nnnn.md` に配置します。
 ファイル名の `nnnn` は WordPress の投稿 ID を表します。
 
 「ブログ」と「しごと情報」の記事に含まれる画像は、それぞれのページと同じディレクトリに

@@ -40,7 +40,7 @@ $toolsDir = Split-Path -Parent $MyInvocation.MyCommand.Path
 $projectDir = Split-Path -Parent $toolsDir
 
 foreach ($dir in @("blog", "job", "pages")) {
-    $target = Join-Path $projectDir "src\$dir"
+    $target = Join-Path $projectDir "content\$dir"
 
     if (-not (Test-Path $target)) {
         continue
@@ -68,10 +68,10 @@ else {
 }
 
 if ($image) {
-    $relativePath = Join-Path "src\$category\$id" "index.md"
+    $relativePath = Join-Path "content\$category\$id" "index.md"
 }
 else {
-    $relativePath = "src\$category\$id.md"
+    $relativePath = "content\$category\$id.md"
 }
 
 $destPath = Join-Path $projectDir $relativePath

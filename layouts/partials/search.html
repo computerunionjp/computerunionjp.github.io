@@ -1,0 +1,49 @@
+<script>
+  function siteSearch (engine) {
+    if (!engine) {
+      // On [Enter]
+      event.preventDefault();
+      engine = localStorage.getItem('siteSearchEngine');
+    } else {
+      // On click buttons
+      localStorage.setItem('siteSearchEngine', engine);
+    }
+
+    const searchWord = document.getElementById("search-word").value.trim();
+
+    if (!searchWord) {
+      return;
+    }
+
+    const query = encodeURIComponent(`site:computer-union.jp ${searchWord}`);
+
+    let url = `https://www.google.com/search?q=${query}`;
+
+    switch (engine) {
+      case 'google':
+        url = `https://www.google.com/search?q=${query}`;
+        break;
+      case 'bing':
+        url = `https://www.bing.com/search?q=${query}`;
+        break;
+      case 'duckduckgo':
+        url = `https://duckduckgo.com/?q=${query}`;
+        break;
+    }
+
+    window.location.href = url;
+  };
+
+  document
+    .getElementById("search-form")
+    .addEventListener("submit", () => siteSearch());
+  document
+    .getElementById("google-search")
+    .addEventListener("click", () => siteSearch('google'));
+  document
+    .getElementById("bing-search")
+    .addEventListener("click", () => siteSearch('bing'));
+  document
+    .getElementById("duckduckgo-search")
+    .addEventListener("click", () => siteSearch('duckduckgo'));
+</script>

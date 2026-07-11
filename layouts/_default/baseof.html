@@ -8,6 +8,10 @@
       rel="stylesheet"
     />
     {{ partial "og.html" . }} {{ partial "style.html" . }}
+    <link rel="icon" href="https://computer-union.jp/images/culogo32.png" sizes="32x32" />
+    <link rel="icon" href="https://computer-union.jp/images/culogo192.png" sizes="192x192" />
+    <link rel="apple-touch-icon" href="https://computer-union.jp/images/culogo180.png" />
+    <meta name="msapplication-TileImage" content="https://computer-union.jp/images/culogo270.png" />
     <title>
       {{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }} | {{ .Site.Title
       }}{{ end }}
@@ -15,21 +19,9 @@
   </head>
   <body>
     {{ partial "header.html" . }}
-    <div class="content-wrap">
+    <div id="content-wrap">
       {{ block "main" . }}{{ end }} {{ partial "footer.html" . }}
     </div>
-
-    <script>
-      document
-        .getElementById("google-search-form")
-        .addEventListener("submit", function () {
-          const input = document.getElementById("search-word");
-          const prefix = "site:computer-union.jp ";
-
-          if (!input.value.startsWith(prefix)) {
-            input.value = prefix + input.value;
-          }
-        });
-    </script>
+    {{ partial "search.html" . }}
   </body>
 </html>

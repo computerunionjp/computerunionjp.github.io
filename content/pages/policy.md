@@ -3,7 +3,6 @@ title: プライバシーポリシー
 date: '2024-03-15T11:34:46Z'
 draft: false
 wordpress_id: 6821
-wordpress_slug: プライバシーポリシー
 source_url: https://computer-union.jp/?page_id=6821
 ---
 

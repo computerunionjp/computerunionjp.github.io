@@ -1,8 +1,7 @@
 # Hugo
 .hugo_build.lock
 resources/
-_site/
-site.zip
+public/
 
 # Python
 .venv/

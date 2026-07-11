@@ -41,8 +41,8 @@ def build_arg_parser() -> argparse.ArgumentParser:
     )
     _ = parser.add_argument(
         "--output",
-        default="src",
-        help="Hugo の contentDir に相当する出力先ディレクトリ (既定: src)",
+        default="content",
+        help="Hugo の contentDir に相当する出力先ディレクトリ (既定: content)",
     )
     _ = parser.add_argument(
         "--base-url",
@@ -62,7 +62,7 @@ def build_arg_parser() -> argparse.ArgumentParser:
         "--refresh",
         action="store_true",
         help=(
-            "src の下の生成済みファイル (blog/job/pages/errors/images/contact.md) を事前に"
+            "content の下の生成済みファイル (blog/job/pages/errors/images/contact.md) を事前に"
             "全て削除してから再インポートする。指定しない場合は削除を行わず、まだインポートしていない投稿 ID"
             "の記事・ページだけを追加する"
         ),
@@ -237,7 +237,7 @@ def main() -> int:
 
     if error_items:
         print(
-            "\n[!] src/errors に振り分けられた記事があります (「ブログ」と「しごと情報」の両方のカテゴリを持つため要手動確認):"
+            "\n[!] content/errors に振り分けられた記事があります (「ブログ」と「しごと情報」の両方のカテゴリを持つため要手動確認):"
         )
         for post_id, title in error_items:
             print(f"    - {post_id}: {title}")

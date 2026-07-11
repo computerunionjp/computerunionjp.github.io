@@ -3,11 +3,10 @@ title: 労供事業の組合員の声
 date: '2021-05-04T05:29:31Z'
 draft: false
 wordpress_id: 4549
-wordpress_slug: 労供事業の組合員の声
 source_url: https://computer-union.jp/?page_id=4549
 ---
 
-[労働者供給事業](/pages/4732/) / [説明会参加お申込み](https://computer-union.jp/?page_id=4650) / [労供事業の契約の形](/pages/4539/) / [しごと情報](/job/)
+[労働者供給事業](/pages/rokyo_overview/) / [説明会参加お申込み](https://computer-union.jp/?page_id=4650) / [労供事業の契約の形](/pages/rokyo_details/) / [しごと情報](/job/)
 
 ### <span class="material-symbols-outlined">face</span> システムエンジニア 40代 男性
 
@@ -104,4 +103,4 @@ CUは一般の労働組合と違い、「雇われる立場の人の集まり」
 不安を抱えながらのスタートでしたが、なんとか10年乗り越えて参りました。
 そうしてここまで乗り越えてこれたのは、心配事があれば相談もでき、親睦を深める機会もあるコンピュータ・ユニオンの人との繋がりがあったからだと思います。
 
-[労働者供給事業](/pages/4732/) / [説明会参加お申込み](https://computer-union.jp/?page_id=4650) / [労供事業の契約の形](/pages/4539/) / [しごと情報](/job/)
+[労働者供給事業](/pages/rokyo_overview/) / [説明会参加お申込み](https://computer-union.jp/?page_id=4650) / [労供事業の契約の形](/pages/rokyo_details/) / [しごと情報](/job/)

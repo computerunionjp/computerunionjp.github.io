@@ -4,7 +4,7 @@
 > Windows で作業する場合は `\` （バックスラッシュ）または `¥` （半角の￥）に読み替えてください。
 
 新規のページIDを採番して「ブログ」または「しごと情報」の原稿のテンプレートを
-`src` の下に作成します。
+`content` の下に作成します。
 日付　( 3行目の date: ) は自動で設定します。
 
 Python版 `tools/create.py` と PowerShell版 `tools/create.ps1` があります。
@@ -35,7 +35,7 @@ $ ./.venv/bin/python tools/create.py
   3. ブログ（画像有り）
 番号を入力してください (1～3): 3
 ブログ（画像有り）を選択しました。
-src/blog/8083/index.md を作成します。
+content/blog/8083/index.md を作成します。
 実行しますか？ [Y/n]: y
 ```
 

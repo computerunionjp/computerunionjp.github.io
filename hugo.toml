@@ -3,8 +3,12 @@ baseURL = "https://computerunionjp.github.io/"
 locale = "ja"
 timeZone = 'Asia/Tokyo'
 title = "コンピュータ・ユニオン"
-contentDir = "src"
-publishDir = "_site"
+# contentDir = "content" -- default
+# publishDir = "public" -- default
+
+[taxonomies]
+# category -- disabled
+# tag -- disabled
 
 [markup.goldmark.renderer]
 unsafe = true

@@ -25,17 +25,19 @@ jobs:
       - run: hugo
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v5
+        with:
+          path: public/
 
       - name: Create ZIP
         run: |
-          cd _site
-          zip -r ../site.zip .
+          cd public
+          zip -r site.zip .
       - name: Publish Release
         uses: softprops/action-gh-release@v3
         with:
           tag_name: latest
           name: Latest Build
-          files: site.zip
+          files: public/site.zip
           make_latest: true
           generate_release_notes: false
       - name: Update site

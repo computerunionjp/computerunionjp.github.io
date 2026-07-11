@@ -35,7 +35,7 @@ def main():
     project_dir = os.path.dirname(tools_dir)
 
     for dir in ["blog", "job", "pages"]:
-        target = os.path.join(project_dir, "src", dir)
+        target = os.path.join(project_dir, "content", dir)
         entries = os.listdir(target)
         for entry in entries:
             if os.path.isdir(os.path.join(target, entry)):
@@ -48,9 +48,9 @@ def main():
     id = int(ids[0]) + 1
 
     relative_path = (
-        os.path.join("src", category, f"{id}", "index.md")
+        os.path.join("content", category, f"{id}", "index.md")
         if image
-        else os.path.join("src", category, f"{id}.md")
+        else os.path.join("content", category, f"{id}.md")
     )
     dest_path = os.path.join(project_dir, relative_path)
     tmpl_path = os.path.join(tools_dir, f"template_{category}.md")
