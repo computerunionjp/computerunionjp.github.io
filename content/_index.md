@@ -23,11 +23,11 @@ IT業界には労働組合のない職場がめずらしくありません。私
 
 [労働者供給事業](/pages/rokyo_overview/)（労供事業、労供）は <a href="https://laws.e-gov.go.jp/document?lawid=322AC0000000141" target="_blank" rel="noopener noreferrer">職安法45条<span class="material-symbols-outlined">open_in_new</span></a> に基づき、厚生労働大臣の許可を受けた労働組合などが無料で行うものです。派遣が禁止されている建設・港湾運送の他に、運転手、介護などいろいろな職種の労働組合が取り組んでいます。IT業界では私たちコンピュータ・ユニオンが許可を受けて実施しています。
 
-<h3><a href="/job/"><span class="material-symbols-outlined">folder</span>しごと情報</a></h3>
+<h3><a href="/job/"><span class="material-symbols-outlined">work</span> しごと情報</a></h3>
 
 {{< latest-posts section="job" count="5" >}}
 
-<h3><a href="/blog/"><span class="material-symbols-outlined">folder</span>ブログ</a></h3>
+<h3><a href="/blog/"><span class="material-symbols-outlined">newsmode</span> ブログ</a></h3>
 
 {{< latest-posts section="blog" count="5" >}}
 

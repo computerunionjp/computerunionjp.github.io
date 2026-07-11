@@ -36,8 +36,51 @@
     h1, h2, h3, h4, h5, h6 {
       display: flex;
       align-items: center;
-      gap: 0.5em;
+      gap: 0.125em;
       line-height: 150%;
+      font-weight: normal;
+      margin: 0.5em 0 0 0;
+      padding: 0.125em 0;
+
+      .material-symbols-outlined {
+        margin-top: 1.25%rem;
+      }
+    }
+
+    h1 {
+      font-size: 2rem;
+      color: saddlebrown;
+    }
+
+    h1.job-title {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    h2 {
+      font-size: 1.75rem;
+      color: darkred;
+    }
+
+    h3 {
+      font-size: 1.5rem;
+      color: sienna;
+    }
+
+    h4 {
+      font-size: 1.25rem;
+      color: darkgoldenrod;
+    }
+
+    h5 {
+      font-size: 1.125rem;
+      color: firebrick;
+    }
+
+    h6 {
+      font-size: 1rem;
+      font-weight: bold;
+      text-decoration: underline;
     }
 
     table {
@@ -147,6 +190,53 @@
           float: left;
           margin-right: 1rem;
         }
+
+        .latest-posts {
+          list-style: none;
+          padding-left: 1rem;
+        }
+
+        .post-nav {
+          display: flex;
+          justify-content: space-between;
+          gap: 1rem;
+          margin: 1rem 0;
+          font-size: 0.9rem;
+          line-height: 125%;
+        }
+
+        .return-index {
+          margin: 0;
+          padding: 0;
+          text-align: right;
+        }
+
+        .articles {
+          list-style: none;
+          gap: 0.5rem;
+          margin: 0;
+          padding: 0;
+        }
+
+        .pagination {
+          list-style: none;
+          padding-left: 1rem;
+          display: flex;
+          gap: 1rem;
+          margin: 1rem 0;
+
+          a {
+            text-decoration: none;
+          }
+
+          .disabled,
+          .active {
+            a {
+              color: lightsteelblue;
+              cursor: default;
+            }
+          }
+        }
       }
 
       .site-footer {
@@ -243,51 +333,5 @@
         }
       }
     }
-  }
-
-  .latest-posts {
-    list-style: none;
-    padding-left: 1rem;
-  }
-
-  .post-nav {
-    display: flex;
-    justify-content: space-between;
-    gap: 1rem;
-    margin: 1rem 0;
-    font-size: 0.9rem;
-  }
-
-  .articles {
-    list-style: none;
-    gap: 0.5rem;
-    margin: 0;
-    padding: 0;
-  }
-
-  .pagination {
-    list-style: none;
-    padding-left: 1rem;
-    display: flex;
-    gap: 1rem;
-    margin: 1rem 0;
-
-    a {
-      text-decoration: none;
-    }
-
-    .disabled,
-    .active {
-      a {
-        color: lightsteelblue;
-        cursor: default;
-      }
-    }
-  }
-
-  .return-index {
-    margin: 0;
-    padding: 0;
-    text-align: right;
   }
 </style>
