@@ -39,7 +39,7 @@ $names = @()
 $toolsDir = Split-Path -Parent $MyInvocation.MyCommand.Path
 $projectDir = Split-Path -Parent $toolsDir
 
-foreach ($dir in @("blog", "job", "pages")) {
+foreach ($dir in @("blog", "job")) {
     $target = Join-Path $projectDir "content\$dir"
 
     if (-not (Test-Path $target)) {

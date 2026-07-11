@@ -34,7 +34,7 @@ def main():
     tools_dir = os.path.dirname(os.path.abspath(__file__))
     project_dir = os.path.dirname(tools_dir)
 
-    for dir in ["blog", "job", "pages"]:
+    for dir in ["blog", "job"]:
         target = os.path.join(project_dir, "content", dir)
         entries = os.listdir(target)
         for entry in entries:
