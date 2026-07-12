@@ -18,6 +18,7 @@
     </title>
   </head>
   <body>
+    {{ partial "color-scheme.html" . }}
     {{ partial "header.html" . }}
     <div id="content-wrap">
       {{ block "main" . }}{{ end }} {{ partial "footer.html" . }}
