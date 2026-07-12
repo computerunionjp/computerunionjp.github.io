@@ -7,14 +7,14 @@
       href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
       rel="stylesheet"
     />
-    {{ partial "og.html" . }} {{ partial "style.html" . }}
+    <link rel="stylesheet" href="/style.css">
+    {{ partial "og.html" . }}
     <link rel="icon" href="https://computer-union.jp/images/culogo32.png" sizes="32x32" />
     <link rel="icon" href="https://computer-union.jp/images/culogo192.png" sizes="192x192" />
     <link rel="apple-touch-icon" href="https://computer-union.jp/images/culogo180.png" />
     <meta name="msapplication-TileImage" content="https://computer-union.jp/images/culogo270.png" />
     <title>
-      {{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }} | {{ .Site.Title
-      }}{{ end }}
+      {{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }} | {{ .Site.Title }}{{ end }}
     </title>
   </head>
   <body>
@@ -23,7 +23,7 @@
       {{ block "main" . }}{{ end }} {{ partial "footer.html" . }}
     </div>
     {{ partial "search.html" . }}
-    {{ partial "redirect.html" . }}
+    {{ if .IsHome }}{{ partial "redirect.html" . }}{{ end }}
     <!--{{ partial "analytics.html" . }}-->
   </body>
 </html>

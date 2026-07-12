@@ -7,7 +7,7 @@ wordpress_slug: ブロックでサイトを作成
 source_url: https://computer-union.jp/
 ---
 
-<img src="/images/part05.jpg" alt="派遣・SES" class="image-right" />
+<img src="/images/part05.jpg" alt="派遣・SES" class="image-right with-dark-mode" />
 
 ## 派遣やSESでいいの？
 
@@ -15,7 +15,7 @@ IT業界では大きな開発プロジェクトに人が集められて、それ
 
 <div style="clear: both;"></div>
 
-<img src="/images/union01.jpg" alt="Union" class="image-left" />
+<img src="/images/union01.jpg" alt="Union" class="image-left with-dark-mode" />
 
 コンピュータ・ユニオン（正式名称：電算労コンピュータ関連労働組合）はIT業界で働く人の個人加盟制の労働組合です。職場の支部と [労働者供給事業](/pages/rokyo_overview/) の支部があります。
 

@@ -10,7 +10,7 @@ source_url: https://computer-union.jp/?page_id=4732
 
 労働者供給事業（労供事業、労供）は <a href="https://laws.e-gov.go.jp/document?lawid=322AC0000000141" target="_blank" rel="noopener noreferrer">職安法45条<span class="material-symbols-outlined">open_in_new</span></a> に基づき、厚生労働大臣の許可を受けた労働組合などが無料で行うものです。派遣が禁止されている建設・港湾運送の他に、運転手、介護などいろいろな職種の労働組合が取り組んでいます。IT業界では私たちコンピュータ・ユニオンが許可を受けて実施しています。
 
-<img src="/images/part05.jpg" alt="派遣・SES" class="image-right" />
+<img src="/images/part05.jpg" alt="派遣・SES" class="image-right with-dark-mode" />
 
 ## 派遣やSESでいいの？
 
@@ -30,7 +30,7 @@ IT業界では大きな開発プロジェクトに人が集められて、それ
 
 また、<a href="https://elaws.e-gov.go.jp/document?lawid=324AC0000000174" target="_blank" rel="noopener noreferrer">労働組合法<span class="material-symbols-outlined">open_in_new</span></a> では労働組合の、選挙や年１回以上の総会の開催といった民主的な運営を規定しています。また、会社の経営に関与する人を排して雇われる側の人だけが参加することも決めています。そのような労働組合に、労働者供給事業を行うことが認められました。派遣法ができるより前のことです。
 
-<img src="/images/appeal07a.jpg" alt="考える" class="image-left" />
+<img src="/images/appeal07a.jpg" alt="考える" class="image-left with-dark-mode" />
 
 ## 自分で決めよう
 
