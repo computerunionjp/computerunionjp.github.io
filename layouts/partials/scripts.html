@@ -47,3 +47,48 @@
     .getElementById("duckduckgo-search")
     .addEventListener("click", () => siteSearch('duckduckgo'));
 </script>
+<!-- Yahoo! site general -->
+<!--
+<script async src="https://s.yimg.jp/images/listing/tool/cv/ytag.js"></script>
+<script>
+  window.yjDataLayer = window.yjDataLayer || [];
+  function ytag() { yjDataLayer.push(arguments); }
+  ytag({"type":"ycl_cookie"});
+</script>
+-->
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<!--
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-2PK41FN64P"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-2PK41FN64P');
+</script>
+-->
+<!-- Event handling: contact -->
+<!--
+<script>
+  const url = "{{ .Site.Params.contact_url }}";
+  document
+    .querySelectorAll(`a[href="${url}"]`)
+    .forEach(link => {
+      link.addEventListener('click', event => {
+        gtag('event', 'click', {
+          'event_category': 'wpcf7mailsent',
+          'event_label': '55e6dac',
+          'value': 1
+        });
+        ytag({
+          "type": "yss_conversion",
+          "config": {
+            "yahoo_conversion_id": "1000951984",
+            "yahoo_conversion_label": "6hiuCMKtluUCEJD5wp4D",
+            "yahoo_conversion_value": "1"
+          }
+        });
+      });
+    });
+</script>
+-->

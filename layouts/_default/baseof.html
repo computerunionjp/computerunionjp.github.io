@@ -1,30 +1,16 @@
 <!doctype html>
 <html lang="{{ .Site.Language.Locale }}">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="/style.css">
-    {{ partial "og.html" . }}
-    <link rel="icon" href="https://computer-union.jp/images/culogo32.png" sizes="32x32" />
-    <link rel="icon" href="https://computer-union.jp/images/culogo192.png" sizes="192x192" />
-    <link rel="apple-touch-icon" href="https://computer-union.jp/images/culogo180.png" />
-    <meta name="msapplication-TileImage" content="https://computer-union.jp/images/culogo270.png" />
+    {{ partial "meta.html" . }}
     <title>
       {{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }} | {{ .Site.Title }}{{ end }}
     </title>
   </head>
   <body>
-    {{ partial "color-scheme.html" . }}
     {{ partial "header.html" . }}
     <div id="content-wrap">
       {{ block "main" . }}{{ end }} {{ partial "footer.html" . }}
     </div>
-    {{ partial "search.html" . }}
-    {{ if .IsHome }}{{ partial "redirect.html" . }}{{ end }}
-    <!--{{ partial "analytics.html" . }}-->
+    {{ partial "scripts.html" . }}
   </body>
 </html>

@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="{{ .Site.Language.Locale }}">
+  <head>
+    {{ partial "meta.html" . }}
+    <title>
+      {{ .Site.Title }}
+    </title>
+  </head>
+  <body>
+    {{ partial "header.html" . }}
+    <div id="content-wrap">
+      <main>
+        <h1>お探しのページが見つかりません</h1>
+        <a href="/">
+          トップページに戻る
+          <span class="material-symbols-outlined">undo</span>
+        </a>
+      </main>
+      {{ partial "footer.html" . }}
+    </div>
+    {{ partial "scripts.html" . }}
+  </body>
+</html>

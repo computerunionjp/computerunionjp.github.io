@@ -1,9 +1,34 @@
+<script>
+setColorScheme(localStorage.getItem('colorScheme') || 'light dark');
+
+function setColorScheme(scheme) {
+  localStorage.setItem('colorScheme', scheme);
+  document.documentElement.style.setProperty("color-scheme", scheme);
+  document
+    .querySelectorAll("img.with-dark-mode")
+    .forEach(img => {
+      img.style.filter =
+        scheme === "dark" ? "invert(12.5%)" : "";
+    });
+}
+</script>
+<div id="dark-mode-selection">
+  <button onclick="setColorScheme('light dark');">
+    <span class="material-symbols-outlined">brightness_auto</span>
+  </button>
+  <button onclick="setColorScheme('light');">
+    <span class="material-symbols-outlined">light_mode</span>
+  </button>
+  <button onclick="setColorScheme('dark');">
+    <span class="material-symbols-outlined">dark_mode</span>
+  </button>
+</div>
 <img src="/images/ENIAC.jpg" alt="ENIAC" />
 <header class="site-header">
   <p class="site-title"><a href="{{ "/" | relLangURL }}">{{ .Site.Title }}</a></p>
   <nav class="site-nav">
     <ul>
-      <li><a href="/pages/rokyo_overview/">労働者供給事業</a></li>
+      <li><a href="/rokyo/">労働者供給事業</a></li>
       <li><a href="{{ .Site.Params.contact_url }}">加入のご相談・お問い合わせ</a></li>
     </ul>
   </nav>

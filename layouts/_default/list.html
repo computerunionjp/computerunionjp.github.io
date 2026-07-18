@@ -1,4 +1,5 @@
 {{ define "main" }}
+{{ if or (eq .Section "blog") (eq .Section "job") }}
 <main>
   <h1>{{
     if eq .Section "blog" }}<span class="material-symbols-outlined">newsmode</span>ブログ{{
@@ -20,4 +21,7 @@
   </ul>
   {{ end }}
 </main>
+{{ else }}
+<main>{{ .Content }}</main>
+{{ end }}
 {{ end }}

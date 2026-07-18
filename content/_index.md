@@ -3,7 +3,7 @@ title: コンピュータ・ユニオンについて
 date: '2021-04-29T06:42:35Z'
 draft: false
 wordpress_id: 4731
-wordpress_slug: ブロックでサイトを作成
+wordpress_slug: コンピュータ・ユニオンについて
 source_url: https://computer-union.jp/
 ---
 
@@ -11,17 +11,17 @@ source_url: https://computer-union.jp/
 
 ## 派遣やSESでいいの？
 
-IT業界では大きな開発プロジェクトに人が集められて、それが終わるとまた別のところに人が移っていきます。その主な契約の形は「請負」、「準委任 （SESなど）」、「派遣」です。どの場合も契約主体は営利企業で …… 続きはこちら » [労働者供給事業](/pages/rokyo_overview/)
+IT業界では大きな開発プロジェクトに人が集められて、それが終わるとまた別のところに人が移っていきます。その主な契約の形は「請負」、「準委任 （SESなど）」、「派遣」です。どの場合も契約主体は営利企業で …… 続きはこちら » [労働者供給事業](/rokyo/)
 
 <div style="clear: both;"></div>
 
 <img src="/images/union01.jpg" alt="Union" class="image-left with-dark-mode" />
 
-コンピュータ・ユニオン（正式名称：電算労コンピュータ関連労働組合）はIT業界で働く人の個人加盟制の労働組合です。職場の支部と [労働者供給事業](/pages/rokyo_overview/) の支部があります。
+コンピュータ・ユニオン（正式名称：電算労コンピュータ関連労働組合）はIT業界で働く人の個人加盟制の労働組合です。職場の支部と [労働者供給事業](/rokyo/) の支部があります。
 
-IT業界には労働組合のない職場がめずらしくありません。私たちコンピュータ・ユニオンは、正社員、契約社員、派遣、フリーランスなど企業との契約の形の違いにかかわらずご加入いただけます。求職中の方には  [労働者供給事業](/pages/rokyo_overview/) で仕事の紹介をいたします。
+IT業界には労働組合のない職場がめずらしくありません。私たちコンピュータ・ユニオンは、正社員、契約社員、派遣、フリーランスなど企業との契約の形の違いにかかわらずご加入いただけます。求職中の方には  [労働者供給事業](/rokyo/) で仕事の紹介をいたします。
 
-[労働者供給事業](/pages/rokyo_overview/)（労供事業、労供）は <a href="https://laws.e-gov.go.jp/document?lawid=322AC0000000141" target="_blank" rel="noopener noreferrer">職安法45条<span class="material-symbols-outlined">open_in_new</span></a> に基づき、厚生労働大臣の許可を受けた労働組合などが無料で行うものです。派遣が禁止されている建設・港湾運送の他に、運転手、介護などいろいろな職種の労働組合が取り組んでいます。IT業界では私たちコンピュータ・ユニオンが許可を受けて実施しています。
+[労働者供給事業](/rokyo/)（労供事業、労供）は <a href="https://laws.e-gov.go.jp/document?lawid=322AC0000000141" target="_blank" rel="noopener noreferrer">職安法45条<span class="material-symbols-outlined">open_in_new</span></a> に基づき、厚生労働大臣の許可を受けた労働組合などが無料で行うものです。派遣が禁止されている建設・港湾運送の他に、運転手、介護などいろいろな職種の労働組合が取り組んでいます。IT業界では私たちコンピュータ・ユニオンが許可を受けて実施しています。
 
 <h3><a href="/job/"><span class="material-symbols-outlined">work</span> しごと情報</a></h3>
 
@@ -36,8 +36,8 @@ IT業界には労働組合のない職場がめずらしくありません。私
 - <a href="http://www.union-net.or.jp/towa/" target="_blank" rel="noopener noreferrer">東和システム支部<span class="material-symbols-outlined">open_in_new</span></a>
 - <a href="https://cu-kansai-it.org/" target="_blank" rel="noopener noreferrer">関西IT支部<span class="material-symbols-outlined">open_in_new</span></a>
 - ソフトウェアセクション
-  - [労働者供給事業](/pages/rokyo_overview/)
-  - [組合員の声](/pages/rokyo_testimonials/)
+  - [労働者供給事業](/rokyo/)
+  - [組合員の声](/rokyo/testimonials/)
   - [ブログ](/blog/)
 - ソフトウェア技術支部
 - アルバス支部
