@@ -12,7 +12,8 @@
 の書式を使ってください。ファイルの拡張子は `*.md` です。
 
 字句の修正程度であれば GitHub 上で直接編集することも可能ですが、使い勝手はよくありません。
-Visual Studio Code など Markdown の編集と GitHub の操作に対応したツールの利用をお勧めします。
+[Visual Studio Code](docs/windowshowto.md) など
+Markdown の編集と GitHub の操作に対応したツールの利用をお勧めします。
 
 Python版または PowerShell版の [テンプレート挿入ツール](tools/create.md)
 を使うと、適切なパスに原稿のファイルを置くことができます。
