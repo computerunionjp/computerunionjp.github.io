@@ -1,7 +1,16 @@
 {
-    "cSpell.words": [
-        "ehthumbs",
-        "encryptable",
-        "peaceiris"
-    ]
+  "cSpell.words": [
+    "computerunionjp",
+    "ehthumbs",
+    "encryptable",
+    "peaceiris",
+    "venv"
+  ],
+  "markdownlint.config": {
+    "MD001": false,
+    "MD060": false,
+    "MD007": {
+      "indent": 4
+    }
+  }
 }
