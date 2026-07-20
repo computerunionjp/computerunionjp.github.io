@@ -19,14 +19,14 @@ Python版または PowerShell版の [テンプレート挿入ツール](tools/cr
 を使うと、適切なパスに原稿のファイルを置くことができます。
 
 - content/
-    - blog/
-        - mmmm.md -- ブログの原稿(1) 画像無し
-        - nnnn/ -- ブログの原稿(2) 画像有り
-            - index.md
-            - nnnn_001.png
-            - nnnn_002.png
-    - job/
-        - oooo.md -- しごと情報の原稿
+  - blog/
+    - mmmm.md -- ブログの原稿(1) 画像無し
+    - nnnn/ -- ブログの原稿(2) 画像有り
+      - index.md
+      - nnnn_001.png
+      - nnnn_002.png
+  - job/
+    - oooo.md -- しごと情報の原稿
 
 ローカルでプレビューするには Hugo が必要です。
 Hugo のインストールの手順は [公式サイト](https://gohugo.io/installation/) を参照してください。
@@ -43,14 +43,14 @@ Press Ctrl+C to stop
 ## 記事のサンプル
 
 - sample/
-    - blog/
-        - 5848.md -- ブログのサンプル(1) 画像無し
-        - 7251/ -- ブログのサンプル(2) 画像有り
-            - index.md
-            - 7251_001.png
-            - 7251_002.png
-    - job/
-        - 8065.md -- しごと情報のサンプル
+  - blog/
+    - 5848.md -- ブログのサンプル(1) 画像無し
+    - 7251/ -- ブログのサンプル(2) 画像有り
+      - index.md
+      - 7251_001.png
+      - 7251_002.png
+  - job/
+    - 8065.md -- しごと情報のサンプル
 
 ## 開発
 

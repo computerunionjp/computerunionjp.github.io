@@ -1,0 +1,21 @@
+{
+  "$schema": "https://raw.githubusercontent.com/streetsidesoftware/cspell/main/cspell.schema.json",
+  "version": "0.2",
+  "words": [
+    "computerunionjp",
+    "ehthumbs",
+    "encryptable",
+    "peaceiris",
+    "venv"
+  ],
+  "ignorePaths": [
+    "**/.git/**",
+    ".idea/*",
+    ".metadata",
+    ".venv/*",
+    ".vscode/*",
+    "public/*",
+    ".gitignore",
+    "requirements.txt"
+  ]
+}
