@@ -1,6 +1,11 @@
 {
   "markdownlint.config": {
     "MD001": false,
+    "MD033": false,
+    "MD041": false,
     "MD060": false,
-  }
+  },
+  "json.schemaDownload.trustedDomains": {
+    "https://raw.githubusercontent.com/streetsidesoftware/cspell/": true
+  },
 }
