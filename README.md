@@ -32,8 +32,8 @@ Python版または PowerShell版の [テンプレート挿入ツール](tools/cr
 Hugo のインストールの手順は [公式サイト](https://gohugo.io/installation/) を参照してください。
 
 ```bash
-$ git clone https://github.com/computerunionjp/computerunionjp.git
-$ cd computerunionjp
+$ git clone git@github.com:computerunionjp/computerunionjp.github.io.git
+$ cd computerunionjp.github.io
 $ hugo server
  ... ...
 Web Server is available at http://localhost:1313/ (bind address 127.0.0.1)
