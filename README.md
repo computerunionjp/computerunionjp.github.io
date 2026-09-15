@@ -5,7 +5,7 @@
 
 ## 編集
 
-`content` の下の記事の原稿を更新して GitHub に push すると自動で GitHub Actions　によりサイトに反映されます。反映には数十秒かかります。
+`content` の下の記事の原稿を更新して GitHub に push すると自動で GitHub Actions によりサイトに反映されます。反映には数十秒かかります。
 
 記事の原稿には
 [GitHub Flavored Markdown](https://docs.github.com/ja/get-started/writing-on-github)
@@ -54,7 +54,7 @@ Press Ctrl+C to stop
 
 ## 開発
 
-GitHub Actions の設定は `.github/workflows/on-push.yaml`　を参照してください。
+GitHub Actions の設定は `.github/workflows/on-push.yaml` を参照してください。
 
 下記のディレクトリは GitHub Actions で無視する設定にしています。作業のマニュアルやコンテンツ作成のための補助的なツール等を置いてください。
 

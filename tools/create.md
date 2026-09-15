@@ -51,6 +51,10 @@ PS> .\tools\create.ps1
 C:\...\computerunionjp> powershell.exe -File .\tools\create.ps1
 ```
 
+または、エクスプローラ上でマウス右クリックして「PowerShell で実行」を選択。
+
+![PowerShellで実行](./RunWithPowerShell.png)
+
 ## 2.3 Windows PowerShell 7
 
 ```powershell
