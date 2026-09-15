@@ -48,16 +48,13 @@
     .addEventListener("click", () => siteSearch('duckduckgo'));
 </script>
 <!-- Yahoo! site general -->
-<!--
 <script async src="https://s.yimg.jp/images/listing/tool/cv/ytag.js"></script>
 <script>
   window.yjDataLayer = window.yjDataLayer || [];
   function ytag() { yjDataLayer.push(arguments); }
-  ytag({"type":"ycl_cookie"});
+  ytag({"type":"ycl_cookie", "config":{"ycl_use_non_cookie_storage":true}});
 </script>
--->
-<!-- Global site tag (gtag.js) - Google Analytics -->
-<!--
+<!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-2PK41FN64P"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -65,21 +62,15 @@
   gtag('js', new Date());
 
   gtag('config', 'G-2PK41FN64P');
+  gtag('config', 'AW-7769699220');
 </script>
--->
 <!-- Event handling: contact -->
-<!--
 <script>
   const url = "{{ .Site.Params.contact_url }}";
   document
     .querySelectorAll(`a[href="${url}"]`)
     .forEach(link => {
       link.addEventListener('click', event => {
-        gtag('event', 'click', {
-          'event_category': 'wpcf7mailsent',
-          'event_label': '55e6dac',
-          'value': 1
-        });
         ytag({
           "type": "yss_conversion",
           "config": {
@@ -88,7 +79,7 @@
             "yahoo_conversion_value": "1"
           }
         });
+        gtag('event', 'conversion', {'send_to': 'AW-7769699220'});
       });
     });
 </script>
--->
