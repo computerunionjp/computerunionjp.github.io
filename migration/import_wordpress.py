@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """WordPress のエクスポート XML (WordPress.xml) を Hugo 用の Markdown コンテンツへ変換するツール。
 
-使い方は tools/import_wordpress.md を参照してください。
+使い方は migration/import_wordpress.md を参照してください。
 """
 
 from __future__ import annotations

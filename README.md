@@ -70,5 +70,5 @@ GitHub Actions の設定は `.github/workflows/on-push.yaml`　を参照して�
 
 ## その他
 
-[移行ツール](tools/import_wordpress.md) --
+[移行ツール](migration/import_wordpress.md) --
 WordPress からの移行のために作成したツールです。記録のために残しますが、運用開始後は不要です。

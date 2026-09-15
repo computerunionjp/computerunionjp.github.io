@@ -1,8 +1,9 @@
 # 移行ツールの使い方
 
-[前提と要件](../migration/01requirements.md) に従って `migration/imports/WordPress.xml`
+[前提と要件](01requirements.md) に従い `migration/imports/WordPress.xml`
 (WordPress のエクスポート XML / WXR 形式) を、Hugo の `contentDir` (`content`) 以下の
-Markdown へ変換するインポートツールです。実装は `tools` にあります。
+Markdown へ変換するインポートツールです。実装は `migration` にあります
+(WordPress からの移行作業のためのツールなので、運用開始後は不要です)。
 
 ## 1. セットアップ (初回のみ)
 
@@ -11,7 +12,7 @@ Python 3 の `venv` を使います。プロジェクトのルートディレク
 
 ```sh
 python -m venv .venv
-./.venv/bin/pip install -r requirements.txt
+./.venv/bin/pip install -r migration/requirements.txt
 ```
 
 Mac OS のシステムの　Python を使う場合は `python` を `python3` に置き換えてください。
@@ -19,13 +20,13 @@ Mac OS のシステムの　Python を使う場合は `python` を `python3` に
 
 ## 2. 実行方法
 
-`tools` は Python パッケージ (パッケージ内で相対インポートを使用) として実装されているため、
-`python tools/import_wordpress.py` のようにファイルを直接実行することはできません。
+`migration` は Python パッケージ (パッケージ内で相対インポートを使用) として実装されているため、
+`python migration/import_wordpress.py` のようにファイルを直接実行することはできません。
 必ず `-m` オプションでモジュールとして実行してください。同じくプロジェクトの
 ルートディレクトリ (`hugo.toml` がある場所) で実行してください。
 
 ```sh
-./.venv/bin/python -m tools.import_wordpress
+./.venv/bin/python -m migration.import_wordpress --start 8000
 ```
 
 実行すると `migration/imports/WordPress.xml` を読み込み、`content` 以下に Markdown ファイルと
@@ -68,13 +69,13 @@ Mac OS のシステムの　Python を使う場合は `python` を `python3` に
 例: 既存のインポート結果を全て作り直す場合
 
 ```sh
-./.venv/bin/python -m tools.import_wordpress --refresh
+./.venv/bin/python -m migration.import_wordpress --refresh
 ```
 
 例: ネットワークに接続せずに分類結果だけ確認する場合
 
 ```sh
-./.venv/bin/python -m tools.import_wordpress --dry-run --no-download
+./.venv/bin/python -m migration.import_wordpress --dry-run --no-download
 ```
 
 ### テストモード (`--test`)
@@ -99,7 +100,7 @@ Mac OS のシステムの　Python を使う場合は `python` を `python3` に
 
 ## 3. 分類のルール
 
-[前提と要件](../migration/01requirements.md) および実装上の判断は以下の通りです。
+[前提と要件](01requirements.md) および実装上の判断は以下の通りです。
 
 - WordPress の投稿 (`post`) は、カテゴリによって次のように振り分けます。
   - 「ブログ」カテゴリのみ → `content/blog/{WordPress の投稿ID}.md`
