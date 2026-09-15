@@ -1,5 +1,5 @@
 import os
-from datetime import datetime
+from datetime import datetime, timezone
 
 
 def main():
@@ -68,7 +68,7 @@ def main():
             base_path = os.path.dirname(dest_path)
             os.makedirs(base_path, exist_ok=True)
 
-            now = datetime.now().strftime("%Y-%m-%dT%H:%M:%S")
+            now = datetime.now(timezone.utc).astimezone().strftime("%Y-%m-%dT%H:%M:%S")
 
             with (
                 open(tmpl_path, "r", encoding="utf-8") as tmpl,

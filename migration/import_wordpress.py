@@ -32,6 +32,20 @@ DEFAULT_BASE_URL = "https://computer-union.jp"
 TEST_BASE_URL = "https://computerunionjp.github.io/"
 
 
+class Args(argparse.Namespace):
+    """コマンドライン引数の型を明示するための argparse.Namespace サブクラス。"""
+
+    input: str = "migration/imports/WordPress.xml"
+    output: str = "content"
+    base_url: str | None = None
+    no_download: bool = False
+    refresh: bool = False
+    start: int | None = None
+    dry_run: bool = False
+    limit: int | None = None
+    test: bool = False
+
+
 def build_arg_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description=__doc__)
     _ = parser.add_argument(
@@ -110,7 +124,7 @@ def clean_output(output_root: Path) -> None:
 
 
 def main() -> int:
-    args = build_arg_parser().parse_args()
+    args = build_arg_parser().parse_args(namespace=Args())
     input_path = Path(args.input)
     output_root = Path(args.output)
 
@@ -217,7 +231,7 @@ def main() -> int:
 
         if not args.dry_run:
             dest_path.parent.mkdir(parents=True, exist_ok=True)
-            dest_path.write_text(file_text, encoding="utf-8")
+            _ = dest_path.write_text(file_text, encoding="utf-8")
 
     print("=== インポート結果 ===")
     print(f"  test_mode: {test_mode} / base_url: {base_url}")
