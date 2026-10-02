@@ -18,6 +18,9 @@ Markdown の編集と GitHub の操作に対応したツールの利用をお勧
 Python版または PowerShell版の [テンプレート挿入ツール](tools/create.md)
 を使うと、適切なパスに原稿のファイルを置くことができます。
 
+`drafts` にまとめて置いた原稿を取り込みたい場合は
+[原稿取り込みツール](tools/import.md) が使えます。
+
 - content/
   - blog/
     - mmmm.md -- ブログの原稿(1) 画像無し
