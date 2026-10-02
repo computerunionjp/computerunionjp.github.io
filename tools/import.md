@@ -11,20 +11,22 @@
 Python版 `tools/import.py` と PowerShell版 `tools/import.ps1` があり、
 どちらも同じ動作をします。
 
-## 1. Python版のセットアップ (初回のみ)
+## 1. 必要な環境
 
-Python 3 の標準ライブラリのみを使用するため、セットアップは
-[`tools/create.md`](create.md) の
-「1. Python版のセットアップ」と同じです。
+以下のいずれかの環境で動作します。
+
+- Python >= 3.9
+- Windows PowerShell 5.1
+- PowerShell 7+
 
 ## 2. 実行方法
 
-プロジェクトのルートディレクトリで実行してください。
-
 ### 2.1 Python版
 
+プロジェクトのルートディレクトリで実行してください。
+
 ```sh
-$ ./.venv/bin/python tools/import.py
+$ python tools/import.py
 ```
 
 Mac OS のシステムの Python を使う場合は `python` を `python3` に
@@ -46,9 +48,9 @@ C:\...\computerunionjp> powershell.exe -File .\tools\import.ps1
 C:\...\computerunionjp> pwsh .\tools\import.ps1
 ```
 
-または、エクスプローラ上でマウス右クリックして「PowerShell で実行」を
-選択してください（手順の詳細は [`tools/create.md`](create.md) の
-「2.2 Windows PowerShell 5.1」を参照してください）。
+または、エクスプローラ上でマウス右クリックして「PowerShell で実行」を選択。
+
+![PowerShellで実行](./RunWithPowerShell.png)
 
 ## 取り込みのルール
 

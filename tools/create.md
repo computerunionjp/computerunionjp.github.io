@@ -9,26 +9,22 @@
 
 Python版 `tools/create.py` と PowerShell版 `tools/create.ps1` があります。
 
-## 1. Python版のセットアップ (初回のみ)
+## 1. 必要な環境
 
-Python 3 の `venv` を使います。プロジェクトのルートディレクトリ (`hugo.toml`
-がある場所) で実行してください。
+以下のいずれかの環境で動作します。
 
-```sh
-python -m venv .venv
-./.venv/bin/pip install -r requirements.txt
-```
-
-Mac OS のシステムの　Python を使う場合は `python` を `python3` に置き換えてください。
+- Python >= 3.9
+- Windows PowerShell 5.1
+- PowerShell 7+
 
 ## 2. 実行方法
 
-プロジェクトのルートディレクトリで実行してください。
-
 ### 2.1 Python版
 
+プロジェクトのルートディレクトリで実行してください。
+
 ```sh
-$ ./.venv/bin/python tools/create.py
+$ python tools/create.py
 記事の種類を選択してください。中止する場合は何も入力せずに Enter を押してください。
   1. しごと情報
   2. ブログ（画像無し）
