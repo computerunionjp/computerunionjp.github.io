@@ -155,6 +155,68 @@ function Resolve-RelativePath {
     return $full
 }
 
+function Get-ImageMatches {
+    param(
+        [string[]]$MdFiles,
+        [string[]]$OtherFiles
+    )
+
+    # "<mdのファイル名（拡張子無し）>-" または
+    # "<mdのファイル名（拡張子無し）>_" で始まるファイル名を、
+    # その *.md の添付ファイルとみなす。複数の *.md に
+    # マッチしうる場合は、より長く一致するを優先する。
+    # どの *.md にもマッチしないファイルは対象外として返す。
+    $stems = $MdFiles |
+        ForEach-Object { [System.IO.Path]::GetFileNameWithoutExtension($_) } |
+        Sort-Object { $_.Length } -Descending
+
+    $matched = @{}
+    foreach ($stem in $stems) {
+        $matched[$stem] = @()
+    }
+
+    $unmatched = @()
+
+    foreach ($name in $OtherFiles) {
+        $stem = [System.IO.Path]::GetFileNameWithoutExtension($name)
+        $found = $false
+        foreach ($mdStem in $stems) {
+            if ($stem.StartsWith("$mdStem-") -or $stem.StartsWith("${mdStem}_")) {
+                $matched[$mdStem] += $name
+                $found = $true
+                break
+            }
+        }
+        if (-not $found) {
+            $unmatched += $name
+        }
+    }
+
+    return @{ Matched = $matched; Unmatched = $unmatched }
+}
+
+function Confirm-SkipUnmatched {
+    param(
+        [string[]]$Unmatched
+    )
+
+    $names = $Unmatched -join ", "
+    Write-Host "対象外のファイル: $names"
+
+    while ($true) {
+        $choice = (Read-Host "これらのファイルをスキップしてインポートを続行しますか？ [Y/n]").Trim().ToLower()
+
+        if ($choice -eq "" -or $choice -eq "y") {
+            return $true
+        }
+        if ($choice -eq "n") {
+            return $false
+        }
+
+        Write-Host "Y または n を入力してください。"
+    }
+}
+
 function Read-BlogImageChoice {
     Write-Host "ブログの記事を取り込みます。"
     Write-Host "  2. ブログ（画像無し）"
@@ -195,34 +257,67 @@ function Main {
     $otherFiles = $entries | Where-Object { $_.Extension -ine ".md" }
 
     if ($otherFiles.Count -gt 0) {
-        if ($mdFiles.Count -eq 1) {
-            $srcPath = $mdFiles[0].FullName
-            $categories = Get-Categories -Path $srcPath
+        if ($mdFiles.Count -eq 0) {
+            Write-Host "drafts/ に *.md 以外のファイルが含まれているため、処理を中止します。"
+            $names = ($otherFiles | ForEach-Object { $_.Name }) -join ", "
+            Write-Host "対象外のファイル: $names"
+            return
+        }
 
-            if ($categories -contains "ブログ") {
-                # *.md が 1 つだけで、その他のファイル（画像など）が
-                # 存在し、カテゴリがブログの場合は画像有りとして取り込む。
-                $basePath = Import-DraftFile -SrcPath $srcPath -ProjectDir $ProjectDir -Image $true
+        $mdNames = $mdFiles | ForEach-Object { $_.Name }
+        $otherNames = $otherFiles | ForEach-Object { $_.Name }
+        $result = Get-ImageMatches -MdFiles $mdNames -OtherFiles $otherNames
+        $matched = $result.Matched
+        $unmatched = $result.Unmatched
 
-                if ($null -ne $basePath) {
-                    foreach ($other in $otherFiles) {
-                        $otherSrc = $other.FullName
-                        $otherDest = Join-Path $basePath $other.Name
-
-                        Move-Item -Path $otherSrc -Destination $otherDest
-
-                        $relSrc = Resolve-RelativePath -ProjectDir $ProjectDir -Path $otherSrc
-                        $relDest = Resolve-RelativePath -ProjectDir $ProjectDir -Path $otherDest
-                        Write-Host "$relSrc を $relDest に移動しました。"
-                    }
-                }
+        $skipFiles = @()
+        if ($unmatched.Count -gt 0) {
+            Write-Host "drafts/ に *.md 以外のファイルが含まれています。"
+            if (-not (Confirm-SkipUnmatched -Unmatched $unmatched)) {
+                Write-Host "処理を中止します。"
                 return
+            }
+            $skipFiles = $unmatched
+        }
+
+        # 添付ファイルを持つ *.md はブログのみ対応。
+        foreach ($entry in $mdFiles) {
+            $stem = [System.IO.Path]::GetFileNameWithoutExtension($entry.Name)
+            if ($matched[$stem].Count -gt 0) {
+                $categories = Get-Categories -Path $entry.FullName
+                if (-not ($categories -contains "ブログ")) {
+                    Write-Host "$($entry.Name) はブログ以外のカテゴリのため、画像などの添付ファイルをインポートできません。処理を中止します。"
+                    return
+                }
             }
         }
 
-        Write-Host "drafts/ に *.md 以外のファイルが含まれているため、処理を中止します。"
-        $names = ($otherFiles | ForEach-Object { $_.Name }) -join ", "
-        Write-Host "対象外のファイル: $names"
+        foreach ($entry in $mdFiles) {
+            $stem = [System.IO.Path]::GetFileNameWithoutExtension($entry.Name)
+            $images = $matched[$stem]
+            $srcPath = $entry.FullName
+            $basePath = Import-DraftFile -SrcPath $srcPath -ProjectDir $ProjectDir -Image ($images.Count -gt 0)
+
+            if ($null -ne $basePath) {
+                foreach ($imageName in $images) {
+                    $otherSrc = Join-Path $draftsDir $imageName
+                    $otherDest = Join-Path $basePath $imageName
+
+                    Move-Item -Path $otherSrc -Destination $otherDest
+
+                    $relSrc = Resolve-RelativePath -ProjectDir $ProjectDir -Path $otherSrc
+                    $relDest = Resolve-RelativePath -ProjectDir $ProjectDir -Path $otherDest
+                    Write-Host "$relSrc を $relDest に移動しました。"
+                }
+            }
+        }
+
+        foreach ($name in $skipFiles) {
+            $skipPath = Join-Path $draftsDir $name
+            Remove-Item -Path $skipPath
+            $relPath = Resolve-RelativePath -ProjectDir $ProjectDir -Path $skipPath
+            Write-Host "$relPath を削除しました。"
+        }
         return
     }
 

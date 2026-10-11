@@ -95,6 +95,53 @@ def import_file(src_path: str, project_dir: str, image: bool) -> str | None:
     return base_path
 
 
+def match_images_to_md(
+    md_files: list[str], other_files: list[str]
+) -> tuple[dict[str, list[str]], list[str]]:
+    """*.md 以外のファイルを、ファイル名が一致する *.md に割り当てる。
+
+    "<mdのファイル名（拡張子無し）>-" または "<mdのファイル名（拡張子無
+    し）>_" で始まるファイル名を、その *.md の添付ファイルとみなす。複数
+    の *.md にマッチしうる場合は、より長く一致する（＝より具体的な）
+    *.md を優先する。どの *.md にもマッチしないファイルは対象外として
+    返す。
+    """
+    stems = sorted(
+        (os.path.splitext(name)[0] for name in md_files),
+        key=len,
+        reverse=True,
+    )
+
+    matched: dict[str, list[str]] = {stem: [] for stem in stems}
+    unmatched: list[str] = []
+
+    for name in other_files:
+        stem = os.path.splitext(name)[0]
+        for md_stem in stems:
+            if stem.startswith((md_stem + "-", md_stem + "_")):
+                matched[md_stem].append(name)
+                break
+        else:
+            unmatched.append(name)
+
+    return matched, unmatched
+
+
+def ask_skip_unmatched(unmatched: list[str]) -> bool:
+    print("対象外のファイル:", ", ".join(unmatched))
+    while True:
+        choice = (
+            input("これらのファイルをスキップしてインポートを続行しますか？ [Y/n]: ")
+            .strip()
+            .lower()
+        )
+        if choice in ("", "y"):
+            return True
+        if choice == "n":
+            return False
+        print("Y または n を入力してください。")
+
+
 def ask_blog_image() -> bool:
     print("ブログの記事を取り込みます。")
     print("  2. ブログ（画像無し）")
@@ -128,28 +175,55 @@ def main() -> None:
     other_files = [e for e in entries if not e.lower().endswith(".md")]
 
     if other_files:
-        if len(md_files) == 1:
-            src_path = os.path.join(drafts_dir, md_files[0])
-            categories = read_categories(src_path)
+        if not md_files:
+            print(
+                "drafts/ に *.md 以外のファイルが含まれているため、処理を中止します。"
+            )
+            print("対象外のファイル:", ", ".join(other_files))
+            return
 
-            if "ブログ" in categories:
-                # *.md が 1 つだけで、その他のファイル（画像など）が
-                # 存在し、カテゴリがブログの場合は画像有りとして取り込む。
-                base_path = import_file(src_path, project_dir, image=True)
-                if base_path is not None:
-                    for name in other_files:
-                        other_src = os.path.join(drafts_dir, name)
-                        other_dest = os.path.join(base_path, name)
-                        _ = shutil.move(other_src, other_dest)
-                        rel_src = os.path.relpath(other_src, project_dir)
-                        rel_dest = os.path.relpath(other_dest, project_dir)
-                        print(f"{rel_src} を {rel_dest} に移動しました。")
+        matched, unmatched = match_images_to_md(md_files, other_files)
+
+        skip_files: list[str] = []
+        if unmatched:
+            print("drafts/ に *.md 以外のファイルが含まれています。")
+            if not ask_skip_unmatched(unmatched):
+                print("処理を中止します。")
                 return
+            skip_files = unmatched
 
-        print(
-            "drafts/ に *.md 以外のファイルが含まれているため、処理を中止します。"
-        )
-        print("対象外のファイル:", ", ".join(other_files))
+        # 添付ファイルを持つ *.md はブログのみ対応。
+        for name in md_files:
+            stem = os.path.splitext(name)[0]
+            if matched[stem]:
+                src_path = os.path.join(drafts_dir, name)
+                categories = read_categories(src_path)
+                if "ブログ" not in categories:
+                    print(
+                        f"{name} はブログ以外のカテゴリのため、画像などの添付ファイルをインポートできません。処理を中止します。"
+                    )
+                    return
+
+        for name in md_files:
+            stem = os.path.splitext(name)[0]
+            src_path = os.path.join(drafts_dir, name)
+            images = matched[stem]
+            base_path = import_file(src_path, project_dir, image=bool(images))
+            if base_path is not None:
+                for image_name in images:
+                    other_src = os.path.join(drafts_dir, image_name)
+                    other_dest = os.path.join(base_path, image_name)
+                    _ = shutil.move(other_src, other_dest)
+                    rel_src = os.path.relpath(other_src, project_dir)
+                    rel_dest = os.path.relpath(other_dest, project_dir)
+                    print(f"{rel_src} を {rel_dest} に移動しました。")
+
+        if skip_files:
+            for name in skip_files:
+                skip_path = os.path.join(drafts_dir, name)
+                os.remove(skip_path)
+                rel_path = os.path.relpath(skip_path, project_dir)
+                print(f"{rel_path} を削除しました。")
         return
 
     if not md_files:

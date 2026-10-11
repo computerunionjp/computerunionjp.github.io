@@ -93,19 +93,74 @@ drafts/draft1.md を content/job/8083.md としてインポートしました。
 drafts/draft2.md を content/job/8084.md としてインポートしました。
 ```
 
-### 4. それ以外の場合は中止
+### 4. `drafts` に `*.md` が複数あり、画像などの添付ファイルも存在する場合
+
+添付ファイルのファイル名（拡張子を除いた部分）が `<md のファイル名
+（拡張子を除いた部分）>-` または `<md のファイル名（拡張子を除いた部分）>_`
+で始まっている場合、その `*.md` の添付ファイルとみなされます
+（`-` 区切り、`_` 区切りのどちらにも対応しています）。該当する `*.md`
+が「ブログ」カテゴリであれば、画像有りとして取り込まれ、添付ファイルは
+取り込み先のディレクトリ（`index.md` と同じディレクトリ）に移動されます。
+
+```
+drafts/
+  article1.md         <- categories: ブログ
+  article1-1.jpg
+  article1-2.jpg
+  article2.md         <- categories: ブログ
+  article2-1.png
+```
+
+```sh
+$ ./.venv/bin/python tools/import.py
+drafts/article1.md を content/blog/8083/index.md としてインポートしました。
+drafts/article1-1.jpg を content/blog/8083/article1-1.jpg に移動しました。
+drafts/article1-2.jpg を content/blog/8083/article1-2.jpg に移動しました。
+drafts/article2.md を content/blog/8084/index.md としてインポートしました。
+drafts/article2-1.png を content/blog/8084/article2-1.png に移動しました。
+```
+
+どの `*.md` にもマッチしない添付ファイル（例: 変換レポートなど、原稿や
+画像以外の付随ファイル）が 1 つでもある場合は、それらのファイル名を表示
+したうえで、スキップしてインポートを続行するかどうかを確認するプロンプト
+が表示されます。`Y`（または何も入力せずに Enter）を入力するとスキップ
+して取り込みを続行し、すべてのインポートが正常に終わった時点でスキップ
+したファイルは `drafts` から削除されます。`n` を入力すると、ファイルを
+一切変更せずに処理を中止します。
+
+```sh
+$ ./.venv/bin/python tools/import.py
+drafts/ に *.md 以外のファイルが含まれています。
+対象外のファイル: conversion-report.txt
+これらのファイルをスキップしてインポートを続行しますか？ [Y/n]: y
+drafts/article1.md を content/blog/8083/index.md としてインポートしました。
+drafts/article1-1.jpg を content/blog/8083/article1-1.jpg に移動しました。
+drafts/article1-2.jpg を content/blog/8083/article1-2.jpg に移動しました。
+drafts/article2.md を content/blog/8084/index.md としてインポートしました。
+drafts/article2-1.png を content/blog/8084/article2-1.png に移動しました。
+drafts/conversion-report.txt を削除しました。
+```
+
+添付ファイルを持つ `*.md` のカテゴリが「ブログ」以外の場合は、プロンプト
+を表示せずに中止します。
+
+### 5. それ以外の場合は中止
 
 - `drafts` が空、または存在しない場合
-- `drafts` に `*.md` 以外のファイルが含まれていて、上記 1. 2. のいずれ
-  にも当てはまらない場合（例: `*.md` が複数あり、かつ画像などのファイル
-  も含まれている場合）
+- `drafts` に `*.md` が 1 つもないのに、`*.md` 以外のファイルが含まれて
+  いる場合
+- 対象外のファイル（どの `*.md` にもファイル名がマッチしないもの）が
+  あり、スキップの確認プロンプトで `n` を入力した場合
+- 添付ファイルを持つ `*.md` のカテゴリが「ブログ」以外の場合
 
 は、メッセージを表示して処理を中止します。ファイルは変更されません。
 
 ```sh
 $ ./.venv/bin/python tools/import.py
-drafts/ に *.md 以外のファイルが含まれているため、処理を中止します。
-対象外のファイル: photo.jpg
+drafts/ に *.md 以外のファイルが含まれています。
+対象外のファイル: conversion-report.txt
+これらのファイルをスキップしてインポートを続行しますか？ [Y/n]: n
+処理を中止します。
 ```
 
 ## 注意事項
