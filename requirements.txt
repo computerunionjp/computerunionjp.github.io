@@ -1,2 +1,5 @@
-# tools/create.py は Python 標準ライブラリのみを使用するため、
-# 追加でインストールするパッケージはありません。
+# tools/create.py と tools/import.py は Python 標準ライブラリのみを
+# 使用するため、追加でインストールするパッケージはありません。
+
+# tools/pick_job_sample.py が使用します。
+python-docx>=1.1.0
