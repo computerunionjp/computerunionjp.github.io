@@ -28,6 +28,8 @@ Markdown の編集と GitHub の操作に対応したツールの利用をお勧
   - job/
     - oooo.md -- しごと情報の原稿
 
+`sample/` の下に記事のサンプルがあります。
+
 ローカルでプレビューするには Hugo が必要です。
 Hugo のインストールの手順は [公式サイト](https://gohugo.io/installation/) を参照してください。
 
@@ -61,27 +63,26 @@ pip install -r requirements.txt
 | [機関紙PDF変換指示書](tools/prompt-blog.md) | 組合機関紙のPDFをAIに読み込ませ、「ブログ」記事用Markdownと画像を `drafts/` に生成させるための指示書です。 |
 | [しごと情報抽出ツール](tools/pick_job_sample.md) | 引き合い一覧（`*.docx`）から案件情報を抽出し、「しごと情報」記事を生成させるためのAI向け指示文面を作成します。 |
 
-典型的な流れは次の通りです。
+## 記事を追加する手順
 
-1. 機関紙PDFや引き合い一覧などの原材料を元に、AIに記事のMarkdownを
-   生成させる（[機関紙PDF変換指示書](tools/prompt-blog.md) /
-   [しごと情報抽出ツール](tools/pick_job_sample.md)）、または
-   [テンプレート挿入ツール](tools/create.md) で手動執筆用のひな形を作成する。
-2. 生成・執筆したMarkdownと画像を `drafts/` に置く。
+### 機関紙のPDFから「ブログ」に転載
+
+1. [機関紙PDF変換指示書](tools/prompt-blog.md) を使って `drafts/` の下に原稿を作成する。
+2. 個人情報などの確認をして必要なら修正する。
 3. [原稿取り込みツール](tools/import.md) で `content/` に取り込む。
 4. `content/` の変更を GitHub に push する。
 
-## 記事のサンプル
+### 案件一覧からサンプルを抽出して「しごと情報」に転載
 
-- sample/
-  - blog/
-    - 5848.md -- ブログのサンプル(1) 画像無し
-    - 7251/ -- ブログのサンプル(2) 画像有り
-      - index.md
-      - 7251_001.png
-      - 7251_002.png
-  - job/
-    - 8065.md -- しごと情報のサンプル
+1. [しごと情報抽出ツール](tools/pick_job_sample.md) を使って、「しごと情報」記事を生成させるためのAI向け指示文面を作成する。
+2. Chat形式の生成AIか、生成AIプログラミングの環境で記事を生成して `drafts/` の下に原稿を置く。
+3. [原稿取り込みツール](tools/import.md) で `content/` に取り込む。
+4. `content/` の変更を GitHub に push する。
+
+### その他
+
+1. [テンプレート挿入ツール](tools/create.md) で空の記事を生成して、記事を執筆する。
+2. `content/` の変更を GitHub に push する。
 
 ## 開発
 
