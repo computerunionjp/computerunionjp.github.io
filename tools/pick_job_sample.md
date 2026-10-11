@@ -16,9 +16,18 @@ Markdown（本サイトのテンプレートに沿ったもの）を3件分、�
 リポジトリで開発されているHTML版アプリ（`dist/jobsamplepicker.html`）と
 同じロジックを持つツールです（分割出力機能を除く）。
 
+Python版 `tools/pick_job_sample.py` と PowerShell版
+`tools/pick_job_sample.ps1` があり、どちらも同じ動作をします。
+
 ## 1. 必要な環境
 
+以下のいずれかの環境で動作します。
+
 - Python >= 3.9 と [python-docx](https://python-docx.readthedocs.io/)（`requirements.txt` に記載）
+- Windows PowerShell 5.1 または PowerShell 7+ と
+  [PSWriteOffice](https://www.powershellgallery.com/packages/PSWriteOffice)
+
+### 1.1 Python版
 
 ```sh
 python -m venv .venv
@@ -29,10 +38,18 @@ pip install -r requirements.txt
 Windows の場合は `source .venv/bin/activate` の代わりに
 `.venv\Scripts\activate` を実行してください。
 
+### 1.2 PowerShell版
+
+```powershell
+PS> Install-Module PSWriteOffice -Scope CurrentUser
+```
+
 ## 2. 実行方法
 
 1. `drafts/` に「引き合い一覧」の `*.docx` ファイルを配置します。
 2. プロジェクトのルートディレクトリで実行してください。
+
+### 2.1 Python版
 
 ```sh
 $ python tools/pick_job_sample.py
@@ -45,6 +62,37 @@ $ python tools/pick_job_sample.py
 
 Mac OS のシステムの Python を使う場合は `python` を `python3` に
 置き換えてください。
+
+### 2.2 Windows PowerShell 5.1 / PowerShell 7
+
+```powershell
+PS> .\tools\pick_job_sample.ps1
+```
+
+または
+
+```cmd
+C:\...\computerunionjp> powershell.exe -File .\tools\pick_job_sample.ps1
+```
+
+```cmd
+C:\...\computerunionjp> pwsh .\tools\pick_job_sample.ps1
+```
+
+または、エクスプローラ上でマウス右クリックして「PowerShell で実行」を選択。
+
+![PowerShellで実行](./RunWithPowerShell.png)
+
+実行結果はPython版と同様です。
+
+```powershell
+PS> .\tools\pick_job_sample.ps1
+入力ファイル:
+  引き合い_20261007.docx
+  引き合い_20261008.docx
+件数: 10
+出力: drafts\prompt20261011154923.txt
+```
 
 3. 出力された `drafts/prompt<yyyymmddhhmmss>.txt` の内容を、AIのチャット
    に貼り付けて実行してください。
@@ -91,5 +139,8 @@ AI側では、この指示に従って条件に合う上位3件を選び、Markd
 - 入力・出力ファイルには案件の詳細情報が含まれる場合があるため、
   取り扱いに注意してください。
 - 抽出・絞り込みのルール（除外キーワードや抽出件数の上限など）を変更
-  したい場合は、`tools/pick_job_sample.py` 内の `EXCLUDES` / `INCLUDES` /
-  `LIMIT` を編集してください。
+  したい場合は、`tools/pick_job_sample.py`（Python版）または
+  `tools/pick_job_sample.ps1`（PowerShell版）内の `EXCLUDES` / `INCLUDES` /
+  `LIMIT`（PowerShell版は `$Excludes` / `$Includes` / `$Limit`）を編集して
+  ください。両方のスクリプトを使う場合は、両方を同じ内容に修正してくだ
+  さい。
