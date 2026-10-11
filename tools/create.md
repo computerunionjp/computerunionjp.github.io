@@ -51,7 +51,7 @@ C:\...\computerunionjp> powershell.exe -File .\tools\create.ps1
 
 ![PowerShellで実行](./RunWithPowerShell.png)
 
-## 2.3 Windows PowerShell 7
+## 2.3 PowerShell 7
 
 ```powershell
 PS> .\tools\create.ps1

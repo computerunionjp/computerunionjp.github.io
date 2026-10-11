@@ -14,12 +14,11 @@ Markdown（本サイトのテンプレートに沿ったもの）を3件分、�
 
 このツールは [jobsamplepicker](https://github.com/computerunionjp/jobsamplepicker)
 リポジトリで開発されているHTML版アプリ（`dist/jobsamplepicker.html`）と
-同じロジックを持つPython CLI版です（分割出力機能を除く）。
+同じロジックを持つツールです（分割出力機能を除く）。
 
 ## 1. 必要な環境
 
-- Python >= 3.9
-- [python-docx](https://python-docx.readthedocs.io/)（`requirements.txt` に記載）
+- Python >= 3.9 と [python-docx](https://python-docx.readthedocs.io/)（`requirements.txt` に記載）
 
 ```sh
 python -m venv .venv
